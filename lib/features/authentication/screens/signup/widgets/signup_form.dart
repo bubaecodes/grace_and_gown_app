@@ -32,39 +32,39 @@ class SignupForm extends StatelessWidget {
           ),
           SizedBox(height: 5.sp,),
 
-          Text(
-            'Email',
-            textAlign: TextAlign.center,
-            style: (Theme.of(context).textTheme.bodyMedium ??
-                const TextStyle())
-                .copyWith(
-              color: AppColors.grey,
-              fontSize: 15.4.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          AppFormTextField(
-            hintText: 'Enter your email',
-            prefixIcon: Icons.mail,
-          ),
-          SizedBox(height: 5.sp,),
-
-          Text(
-            'Email',
-            textAlign: TextAlign.center,
-            style: (Theme.of(context).textTheme.bodyMedium ??
-                const TextStyle())
-                .copyWith(
-              color: AppColors.grey,
-              fontSize: 15.4.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          AppFormTextField(
-            hintText: 'Enter your email',
-            prefixIcon: Icons.mail,
-          ),
-          SizedBox(height: 5.sp,),
+          // Text(
+          //   'Email',
+          //   textAlign: TextAlign.center,
+          //   style: (Theme.of(context).textTheme.bodyMedium ??
+          //       const TextStyle())
+          //       .copyWith(
+          //     color: AppColors.grey,
+          //     fontSize: 15.4.sp,
+          //     fontWeight: FontWeight.w500,
+          //   ),
+          // ),
+          // AppFormTextField(
+          //   hintText: 'Enter your email',
+          //   prefixIcon: Icons.mail,
+          // ),
+          // SizedBox(height: 5.sp,),
+          //
+          // Text(
+          //   'Email',
+          //   textAlign: TextAlign.center,
+          //   style: (Theme.of(context).textTheme.bodyMedium ??
+          //       const TextStyle())
+          //       .copyWith(
+          //     color: AppColors.grey,
+          //     fontSize: 15.4.sp,
+          //     fontWeight: FontWeight.w500,
+          //   ),
+          // ),
+          // AppFormTextField(
+          //   hintText: 'Enter your email',
+          //   prefixIcon: Icons.mail,
+          // ),
+          // SizedBox(height: 5.sp,),
 
           Text(
             'Password',
