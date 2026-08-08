@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:grace_and_gown_app/features/authentication/screens/login/widgets/login_screen.dart';
+import 'package:liquid_swipe/liquid_swipe.dart';
 
-class OnboardingController extends GetxController{
+import 'package:grace_and_gown_app/features/authentication/screens/login/login_screen.dart';
+
+class OnboardingController extends GetxController {
   static OnboardingController get instance => Get.find();
 
-  final pageController = PageController();
-  RxInt currentPageIndex= 0.obs;
+  final LiquidController liquidController = LiquidController();
 
-  /// update page index when scrolled
-  void updatePageIndicator(index) => currentPageIndex.value = index;
+  final currentPageIndex = 0.obs;
 
-  /// jump to the selected dot selected page
-  void dotNavigationClick(index) {
-    currentPageIndex.value = index;
-    pageController.jumpToPage(index);
+  void updatePageIndicator(int page) {
+    currentPageIndex.value = page;
   }
 
-  /// jump to next page
-  void nextPage(){
+  void nextPage() {
     if (currentPageIndex.value == 2) {
       FocusManager.instance.primaryFocus?.unfocus();
-
-      Get.to(LoginScreen());
+      Get.off(() => const LoginScreen());
     } else {
-      int page = currentPageIndex.value + 1;
-      FocusManager.instance.primaryFocus?.unfocus();
-      pageController.jumpToPage(page);
+      liquidController.animateToPage(
+        page: currentPageIndex.value + 1,
+      );
     }
   }
 
-  /// update current index and jump to last page
+  void previousPage() {
+    if (currentPageIndex.value > 0) {
+      liquidController.animateToPage(
+        page: currentPageIndex.value - 1,
+      );
+    }
+  }
+
   void skipPage() {
-    currentPageIndex.value = 2;
-    FocusManager.instance.primaryFocus?.unfocus();
-    pageController.jumpToPage(2);
+    liquidController.jumpToPage(page: 2);
   }
 }

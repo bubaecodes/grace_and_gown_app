@@ -41,6 +41,7 @@ dependencies:
   firebase_core: ^4.13.0
   flutter_liquid_swipe: ^0.0.1
   smooth_page_indicator: ^2.0.1
+  liquid_swipe: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,10 @@ flutter:
   assets:
     - assets/logo/
     - assets/fonts/
+    - assets/images/bouquets/
+    - assets/images/courts/
+    - assets/images/gowns/
+    - assets/images/randoms/
     - assets/images/onboarding/
   #   - images/a_dot_ham.jpeg
 
@@ -100,6 +105,10 @@ flutter:
     - family: Playfair Display
       fonts:
         - asset: assets/fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf
+          weight: 400
+    - family: Prata
+      fonts:
+        - asset: assets/fonts/Prata/Prata-Regular.ttf
           weight: 400
   #   - family: Trajan Pro
   #     fonts:

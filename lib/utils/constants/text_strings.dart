@@ -4,13 +4,13 @@ class AppTexts {
   static const String appName = 'Show Me Love';
 
   /// onboarding texts
-  static const String onBoardingTitle1 = 'Turn your Creativity into Income.';
-  static const String onBoardingTitle2 = 'Grow your Community.';
-  static const String onBoardingTitle3 = 'Cash out Easily.';
+  static const String onBoardingTitle1 = 'Find Your Perfect Gown';
+  static const String onBoardingTitle2 = 'Curated Just For You';
+  static const String onBoardingTitle3 = 'Quality You Trust';
 
-  static const String onBoardingSubTitle1 = 'Receive tips support from your fans; anywhere, anytime.';
-  static const String onBoardingSubTitle2 = 'Build stronger connections with fans who support your journey.';
-  static const String onBoardingSubTitle3 = 'Withdraw your earnings directly to your bank account.';
+  static const String onBoardingSubTitle1 = 'Explore our hand picked collection of stunning wedding gowns for your unforgettable day.';
+  static const String onBoardingSubTitle2 = 'Hand picked styles, timeless designs, and the latest trends, all in one beautiful place.';
+  static const String onBoardingSubTitle3 = 'Well maintained gowns that makes you feel your best.';
 
   /// login texts
   static const String loginHeader = 'Login';
