@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grace_and_gown_app/features/authentication/screens/login/widgets/login_form.dart';
-import 'package:grace_and_gown_app/features/authentication/screens/login/widgets/login_header.dart';
+import 'package:grace_and_gown_app/features/authentication/screens/signup/widgets/signup_form.dart';
+import 'package:grace_and_gown_app/features/authentication/screens/signup/widgets/signup_header.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -14,12 +14,34 @@ class SignupScreen extends StatelessWidget {
       backgroundColor: AppColors.cardBg,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 6.h,),
+          padding: EdgeInsets.only(top: 4.h,),
           child: Column(
             children: [
-              LoginHeader(),
-              SizedBox(height: 10.h,),
-              LoginForm(),
+              SignupHeader(),
+              Text(
+                'Create Your Account',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Prata',
+                  fontSize: 28.sp,
+                  letterSpacing: 1.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.primaryGreen,
+                ),
+              ),
+              SizedBox(height: 2.h),
+              Text(
+                'Sign up to get started',
+                textAlign: TextAlign.center,
+                style: (Theme.of(context).textTheme.bodyMedium ??
+                    const TextStyle())
+                    .copyWith(
+                  color: AppColors.grey,
+                  fontSize: 15.4.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              SignupForm(),
             ],
           ),
         ),

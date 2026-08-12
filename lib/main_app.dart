@@ -95,9 +95,4 @@ class _MainAppState extends State<MainApp>
       );
     }
   }
-
-  // SystemChrome.setPreferredOrientations([
-  //   DeviceOrientation.portraitUp,
-  //   DeviceOrientation.portraitDown,
-  // ]);
 }

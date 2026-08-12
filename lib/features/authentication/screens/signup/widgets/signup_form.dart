@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grace_and_gown_app/common/widgets/app_text_form_field.dart';
-import 'package:grace_and_gown_app/features/authentication/screens/login/widgets/login_footer.dart';
+import 'package:grace_and_gown_app/features/authentication/screens/signup/widgets/signup_footer.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
 import 'package:grace_and_gown_app/utils/constants/image_strings.dart';
 
@@ -11,10 +11,27 @@ class SignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 6.h,),
+      padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 2.h,),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            'Full Name',
+            textAlign: TextAlign.center,
+            style: (Theme.of(context).textTheme.bodyMedium ??
+                const TextStyle())
+                .copyWith(
+              color: AppColors.grey,
+              fontSize: 15.4.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          AppFormTextField(
+            hintText: 'Enter your full name',
+            prefixIcon: Icons.mail,
+          ),
+          SizedBox(height: 5.sp,),
+
           Text(
             'Email',
             textAlign: TextAlign.center,
@@ -32,39 +49,22 @@ class SignupForm extends StatelessWidget {
           ),
           SizedBox(height: 5.sp,),
 
-          // Text(
-          //   'Email',
-          //   textAlign: TextAlign.center,
-          //   style: (Theme.of(context).textTheme.bodyMedium ??
-          //       const TextStyle())
-          //       .copyWith(
-          //     color: AppColors.grey,
-          //     fontSize: 15.4.sp,
-          //     fontWeight: FontWeight.w500,
-          //   ),
-          // ),
-          // AppFormTextField(
-          //   hintText: 'Enter your email',
-          //   prefixIcon: Icons.mail,
-          // ),
-          // SizedBox(height: 5.sp,),
-          //
-          // Text(
-          //   'Email',
-          //   textAlign: TextAlign.center,
-          //   style: (Theme.of(context).textTheme.bodyMedium ??
-          //       const TextStyle())
-          //       .copyWith(
-          //     color: AppColors.grey,
-          //     fontSize: 15.4.sp,
-          //     fontWeight: FontWeight.w500,
-          //   ),
-          // ),
-          // AppFormTextField(
-          //   hintText: 'Enter your email',
-          //   prefixIcon: Icons.mail,
-          // ),
-          // SizedBox(height: 5.sp,),
+          Text(
+            'Phone Number',
+            textAlign: TextAlign.center,
+            style: (Theme.of(context).textTheme.bodyMedium ??
+                const TextStyle())
+                .copyWith(
+              color: AppColors.grey,
+              fontSize: 15.4.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          AppFormTextField(
+            hintText: 'Enter your phone number',
+            prefixIcon: Icons.mail,
+          ),
+          SizedBox(height: 5.sp,),
 
           Text(
             'Password',
@@ -78,24 +78,27 @@ class SignupForm extends StatelessWidget {
             ),
           ),
           AppFormTextField(
-            hintText: 'Enter your password',
+            hintText: 'Create a password',
+            prefixIcon: Icons.mail,
+          ),
+          SizedBox(height: 5.sp,),
+
+          Text(
+            'Confirm Password',
+            textAlign: TextAlign.center,
+            style: (Theme.of(context).textTheme.bodyMedium ??
+                const TextStyle())
+                .copyWith(
+              color: AppColors.grey,
+              fontSize: 15.4.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          AppFormTextField(
+            hintText: 'Confirm your password',
             prefixIcon: Icons.lock,
           ),
           SizedBox(height: 14.sp,),
-
-          InkWell(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Forgot Password',
-                  style: (Theme.of(context).textTheme.headlineLarge ?? const TextStyle())
-                      .copyWith(color: AppColors.darkGreen, fontSize: 14.sp, fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 14.h,),
 
           InkWell(
             //onTap: ()=> Get.to(()=> BottomNavMenu()),
@@ -109,7 +112,7 @@ class SignupForm extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'Login',
+                  'Sign Up',
                   style: (Theme.of(context).textTheme.headlineLarge ?? const TextStyle())
                       .copyWith(color: AppColors.white, fontSize: 17.sp, fontWeight: FontWeight.w600),
                   textAlign: TextAlign.center,
@@ -125,7 +128,7 @@ class SignupForm extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  'or',
+                  'or sign up with',
                   style:
                   (Theme.of(context).textTheme.bodySmall ??
                       const TextStyle())
@@ -194,9 +197,9 @@ class SignupForm extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 40.h,),
+          SizedBox(height: 20.h,),
 
-          LoginFooter(),
+          SignupFooter(),
         ],
       ),
     );

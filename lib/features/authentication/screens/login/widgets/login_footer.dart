@@ -44,3 +44,4 @@ class LoginFooter extends StatelessWidget {
     );
   }
 }
+

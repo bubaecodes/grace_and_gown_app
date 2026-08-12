@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:grace_and_gown_app/common/widgets/app_text_form_field.dart';
+import 'package:grace_and_gown_app/features/authentication/controllers/login/login_controller.dart';
 import 'package:grace_and_gown_app/features/authentication/screens/login/widgets/login_footer.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
 import 'package:grace_and_gown_app/utils/constants/image_strings.dart';
@@ -10,6 +12,7 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 6.h,),
       child: Column(
@@ -43,9 +46,16 @@ class LoginForm extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          AppFormTextField(
-            hintText: 'Enter your password',
-            prefixIcon: Icons.lock,
+          Obx(
+            ()=> AppFormTextField(
+              hintText: 'Enter your password',
+              prefixIcon: Icons.lock,
+              obscureText: !controller.isVisible.value,
+              suffixIcon: controller.isVisible.value ? Icons.visibility_off : Icons.visibility,
+              iconToggle: (){
+                controller.isToggle();
+              },
+            ),
           ),
           SizedBox(height: 14.sp,),
 

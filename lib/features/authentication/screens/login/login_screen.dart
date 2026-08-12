@@ -9,19 +9,17 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.cardBg,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 6.h,),
-          child: Column(
-            children: [
-              LoginHeader(),
-              SizedBox(height: 10.h,),
-              LoginForm()
-            ],
-          ),
+        child: Column(
+          children: [
+            LoginHeader(),
+            SizedBox(height: 10.h,),
+            LoginForm(),
+          ],
         ),
       ),
     );

@@ -9,6 +9,7 @@ class AppFormTextField extends StatelessWidget {
     required this.prefixIcon,
     this.suffixIcon,
     this.onTap,
+    this.iconToggle,
     this.obscureText = false,
   });
 
@@ -16,6 +17,7 @@ class AppFormTextField extends StatelessWidget {
   final IconData prefixIcon;
   final IconData? suffixIcon;
   final VoidCallback? onTap;
+  final VoidCallback? iconToggle;
   final bool obscureText;
 
   @override
@@ -35,7 +37,14 @@ class AppFormTextField extends StatelessWidget {
           color: AppColors.grey,
           fontWeight: FontWeight.w500,
         ),
-        prefixIcon: Icon(prefixIcon, size: 20.sp, color: AppColors.primaryGreen,),
+        prefixIcon: InkWell(
+          onTap: iconToggle,
+          child: Icon(
+            prefixIcon,
+            size: 20.sp,
+            color: AppColors.primaryGreen,
+          ),
+        ),
         suffixIcon: InkWell(
           onTap: onTap,
           child: Icon(suffixIcon, size: 20.sp, color: AppColors.primaryGreen,),
