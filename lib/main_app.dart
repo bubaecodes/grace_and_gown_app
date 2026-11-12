@@ -6,7 +6,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:toastification/toastification.dart';
 
 import 'app_initializer.dart';
-import 'features/authentication/screens/splash/splash_screen.dart';
+import 'features/auth/splash/screens/splash_screen.dart';
 import 'utils/routes/app_pages.dart';
 import 'utils/routes/routes.dart';
 import 'utils/theme/theme.dart';

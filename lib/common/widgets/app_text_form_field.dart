@@ -11,6 +11,10 @@ class AppFormTextField extends StatelessWidget {
     this.onTap,
     this.iconToggle,
     this.obscureText = false,
+    this.controller,
+    this.keyboardType,
+    this.validator,
+    this.textInputAction,
   });
 
   final String hintText;
@@ -19,11 +23,19 @@ class AppFormTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? iconToggle;
   final bool obscureText;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  final TextInputAction? textInputAction;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obscureText,
+      controller: controller,
+      keyboardType: keyboardType,
+      validator: validator,
+      textInputAction: textInputAction,
       style: TextStyle(
         fontSize: 14.sp,
         color: AppColors.primaryGreen,

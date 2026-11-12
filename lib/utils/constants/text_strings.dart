@@ -38,7 +38,7 @@ class AppTexts {
   static const String passwordResetLinkFooter= 'I did not get an email. Resend';
 
   /// confirm password screen texts
-  static const String confirmPasswordHeader = 'Password Reset Link Sent!';
+  static const String confirmPasswordHeader = 'Reset Your Password';
   static const String confirmPasswordSubHeader = 'Enter the 6 digit code, new password and confirm password.';
   static const String confirmPasswordLabelTitle1 = 'New Password';
   static const String confirmPasswordLabelTitle2 = 'Confirm Password';
