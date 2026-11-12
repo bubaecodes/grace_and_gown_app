@@ -12,7 +12,7 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.white,
+      color: AppColors.elevatedSurface(context),
       width: double.infinity,
       height: double.infinity,
       child: Padding(
@@ -49,7 +49,7 @@ class OnboardingPage extends StatelessWidget {
                             fontSize: 31.sp,
                             letterSpacing: 1.sp,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.primaryGreen,
+                            color: AppColors.heading(context),
                           ),
                         ),
                       ),
@@ -64,7 +64,7 @@ class OnboardingPage extends StatelessWidget {
                         child: Text(
                           subtitle,
                           style: (Theme.of(context).textTheme.bodyMedium ?? const TextStyle())
-                              .copyWith(color: AppColors.grey, fontSize: 15.2.sp, fontWeight: FontWeight.w500),
+                              .copyWith(color: AppColors.secondary(context), fontSize: 15.2.sp, fontWeight: FontWeight.w500),
                           textAlign: TextAlign.center,
                           maxLines: 2,
                           softWrap: true,

@@ -22,7 +22,7 @@ class VerifyEmailHeader extends StatelessWidget {
             fontSize: 28.sp,
             letterSpacing: 1.sp,
             fontWeight: FontWeight.w500,
-            color: AppColors.primaryGreen,
+            color: AppColors.heading(context),
           ),
         ),
         SizedBox(height: 6.h),
@@ -35,7 +35,7 @@ class VerifyEmailHeader extends StatelessWidget {
                 style: (Theme.of(context).textTheme.bodyMedium ??
                     const TextStyle())
                     .copyWith(
-                  color: AppColors.grey,
+                  color: AppColors.secondary(context),
                   fontSize: 14.5.sp,
                   fontWeight: FontWeight.w500,
                 ),
@@ -45,7 +45,7 @@ class VerifyEmailHeader extends StatelessWidget {
                     style: (Theme.of(context).textTheme.bodyMedium ??
                         const TextStyle())
                         .copyWith(
-                      color: AppColors.primaryGreen,
+                      color: AppColors.accentText(context),
                       fontSize: 14.5.sp,
                       fontWeight: FontWeight.w700,
                     ),

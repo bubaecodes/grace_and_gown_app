@@ -25,7 +25,7 @@ class ResetLinkForm extends StatelessWidget {
                 style: (Theme.of(context).textTheme.bodyMedium ??
                     const TextStyle())
                     .copyWith(
-                  color: AppColors.grey,
+                  color: AppColors.secondary(context),
                   fontSize: 14.5.sp,
                   fontWeight: FontWeight.w500,
                 ),
@@ -35,7 +35,7 @@ class ResetLinkForm extends StatelessWidget {
                     style: (Theme.of(context).textTheme.bodyMedium ??
                         const TextStyle())
                         .copyWith(
-                      color: AppColors.primaryGreen,
+                      color: AppColors.accentText(context),
                       fontSize: 14.5.sp,
                       fontWeight: FontWeight.w700,
                     ),
@@ -66,8 +66,8 @@ class ResetLinkForm extends StatelessWidget {
                         const TextStyle())
                         .copyWith(
                       color: canResend
-                          ? AppColors.primaryGreen
-                          : AppColors.grey,
+                          ? AppColors.accentText(context)
+                          : AppColors.secondary(context),
                       fontSize: 13.5.sp,
                       fontWeight:
                       canResend ? FontWeight.w700 : FontWeight.w500,

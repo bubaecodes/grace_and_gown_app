@@ -11,7 +11,7 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: AppColors.cardBg,
+      backgroundColor: AppColors.authScaffold(context),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 4.h,),
@@ -26,7 +26,7 @@ class SignupScreen extends StatelessWidget {
                   fontSize: 28.sp,
                   letterSpacing: 1.sp,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.primaryGreen,
+                  color: AppColors.heading(context),
                 ),
               ),
               SizedBox(height: 2.h),
@@ -36,7 +36,7 @@ class SignupScreen extends StatelessWidget {
                 style: (Theme.of(context).textTheme.bodyMedium ??
                     const TextStyle())
                     .copyWith(
-                  color: AppColors.grey,
+                  color: AppColors.secondary(context),
                   fontSize: 15.4.sp,
                   fontWeight: FontWeight.w500,
                 ),

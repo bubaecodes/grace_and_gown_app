@@ -25,7 +25,7 @@ class LoginFooter extends StatelessWidget {
                 text: 'Sign up',
                 style: (Theme.of(context).textTheme.bodySmall ?? const TextStyle())
                     .copyWith(
-                  color: AppColors.primaryGreen,
+                  color: AppColors.accentText(context),
                   fontSize: 15.3.sp,
                   fontWeight: FontWeight.w500,
                 ),

@@ -230,7 +230,7 @@ class SignupForm extends StatelessWidget {
       style: (Theme.of(context).textTheme.bodyMedium ??
           const TextStyle())
           .copyWith(
-        color: AppColors.grey,
+        color: AppColors.secondary(context),
         fontSize: 15.4.sp,
         fontWeight: FontWeight.w500,
       ),
@@ -370,7 +370,7 @@ class SignupForm extends StatelessWidget {
                               .headlineLarge ??
                               const TextStyle())
                               .copyWith(
-                            color: AppColors.primaryGreen,
+                            color: AppColors.accentText(context),
                             fontSize: 14.5.sp,
                             fontWeight: FontWeight.w700,
                           ),
@@ -398,7 +398,7 @@ class SignupForm extends StatelessWidget {
                           AppImages.appleIcon,
                           width: 21.sp,
                           height: 21.sp,
-                          color: Colors.black,
+                          color: AppColors.strong(context),
                         ),
                         SizedBox(width: 8.w),
                         Text(
@@ -408,7 +408,7 @@ class SignupForm extends StatelessWidget {
                               .headlineLarge ??
                               const TextStyle())
                               .copyWith(
-                            color: AppColors.primaryGreen,
+                            color: AppColors.accentText(context),
                             fontSize: 14.5.sp,
                             fontWeight: FontWeight.w700,
                           ),

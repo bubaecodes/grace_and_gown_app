@@ -12,7 +12,7 @@ class VerifyEmailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: AppColors.cardBg,
+      backgroundColor: AppColors.authScaffold(context),
       body: SafeArea(
         child: Column(
           children: [
@@ -22,12 +22,12 @@ class VerifyEmailScreen extends StatelessWidget {
               width: 96.w,
               height: 96.w,
               decoration: BoxDecoration(
-                color: AppColors.sageGreen.withValues(alpha: 0.34),
+                color: AppColors.fieldFill(context),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 Icons.alternate_email_rounded,
-                color: AppColors.primaryGreen,
+                color: AppColors.heading(context),
                 size: 48.sp,
               ),
             ),

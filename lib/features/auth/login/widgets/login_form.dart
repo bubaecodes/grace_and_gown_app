@@ -25,7 +25,7 @@ class LoginForm extends StatelessWidget {
             style: (Theme.of(context).textTheme.bodyMedium ??
                 const TextStyle())
                 .copyWith(
-              color: AppColors.grey,
+              color: AppColors.secondary(context),
               fontSize: 15.4.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -42,7 +42,7 @@ class LoginForm extends StatelessWidget {
             style: (Theme.of(context).textTheme.bodyMedium ??
                 const TextStyle())
                 .copyWith(
-              color: AppColors.grey,
+              color: AppColors.secondary(context),
               fontSize: 15.4.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -68,7 +68,7 @@ class LoginForm extends StatelessWidget {
                 Text(
                   'Forgot Password',
                   style: (Theme.of(context).textTheme.headlineLarge ?? const TextStyle())
-                      .copyWith(color: AppColors.darkGreen, fontSize: 14.sp, fontWeight: FontWeight.w500),
+                      .copyWith(color: AppColors.link(context), fontSize: 14.sp, fontWeight: FontWeight.w500),
                 ),
               ],
             ),
@@ -77,12 +77,13 @@ class LoginForm extends StatelessWidget {
 
           InkWell(
             //onTap: ()=> Get.to(()=> BottomNavMenu()),
+            onTap: () => Get.offAllNamed(Routes.dashboardScreen),
             child: Container(
               height: 65.h,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: AppColors.sageGreen,
-                border: Border.all(color: AppColors.primaryGreen,),
+                border: Border.all(color: AppColors.accent(context),),
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: Center(
@@ -135,7 +136,7 @@ class LoginForm extends StatelessWidget {
                       Text(
                         'Continue with Google',
                         style: (Theme.of(context).textTheme.headlineLarge ?? const TextStyle())
-                            .copyWith(color: AppColors.primaryGreen, fontSize: 14.5.sp, fontWeight: FontWeight.w700),
+                            .copyWith(color: AppColors.accentText(context), fontSize: 14.5.sp, fontWeight: FontWeight.w700),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -157,13 +158,13 @@ class LoginForm extends StatelessWidget {
                         AppImages.appleIcon,
                         width: 21.sp,
                         height: 21.sp,
-                        color: Colors.black,
+                        color: AppColors.strong(context),
                       ),
                       SizedBox(width: 8.w,),
                       Text(
                         'Continue with Apple',
                         style: (Theme.of(context).textTheme.headlineLarge ?? const TextStyle())
-                            .copyWith(color: AppColors.primaryGreen, fontSize: 14.5.sp, fontWeight: FontWeight.w700),
+                            .copyWith(color: AppColors.accentText(context), fontSize: 14.5.sp, fontWeight: FontWeight.w700),
                         textAlign: TextAlign.center,
                       ),
                     ],

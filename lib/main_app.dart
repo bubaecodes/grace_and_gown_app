@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grace_and_gown_app/utils/constants/colors.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:toastification/toastification.dart';
 
@@ -13,19 +14,26 @@ import 'utils/theme/theme.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+/// System bar colors for the current [brightness] so the status bar icons and
+/// the navigation bar always contrast with the active light/dark theme.
+SystemUiOverlayStyle systemUiOverlayStyle(Brightness brightness) {
+  final isDark = brightness == Brightness.dark;
+  return SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+    statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
+    systemNavigationBarColor: isDark ? AppColors.dark : Colors.white,
+    systemNavigationBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+  );
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await AppInitializer.init();
 
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light,
-      systemNavigationBarColor: Colors.white,
-      systemNavigationBarIconBrightness: Brightness.dark,
-    ),
+    systemUiOverlayStyle(WidgetsBinding.instance.platformDispatcher.platformBrightness),
   );
 
   await SystemChrome.setPreferredOrientations([
@@ -60,9 +68,11 @@ class _MainAppState extends State<MainApp>
               debugShowCheckedModeBanner: false,
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
-              themeMode: ThemeMode.light,
               initialRoute: Routes.splashScreen,
               getPages: AppPages.pages,
+              /// Follow the device light/dark setting.
+              //themeMode: ThemeMode.system,
+              themeMode: ThemeMode.system,
               home: const SplashScreen(),
             );
           },
@@ -85,12 +95,8 @@ class _MainAppState extends State<MainApp>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light,
-          systemNavigationBarColor: Colors.white,
-          systemNavigationBarIconBrightness: Brightness.dark,
+        systemUiOverlayStyle(
+          MediaQuery.of(context).platformBrightness,
         ),
       );
     }

@@ -17,7 +17,7 @@ class OnboardingScreen extends StatelessWidget {
     final controller = Get.put(OnboardingController());
 
     return Scaffold(
-      backgroundColor: AppColors.softBeige,
+      backgroundColor: AppColors.beigeScaffold(context),
       body: Stack(
         children: [
 

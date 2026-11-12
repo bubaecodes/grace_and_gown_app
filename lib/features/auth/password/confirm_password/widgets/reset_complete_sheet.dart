@@ -12,7 +12,7 @@ class ResetCompleteSheet extends StatelessWidget {
   static Future<void> show() {
     return Get.bottomSheet(
       const ResetCompleteSheet(),
-      backgroundColor: AppColors.white,
+      /// Background comes from the theme's bottomSheetTheme (light/dark aware).
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -33,7 +33,7 @@ class ResetCompleteSheet extends StatelessWidget {
             width: 76.w,
             height: 76.w,
             decoration: BoxDecoration(
-              color: AppColors.sageGreen.withValues(alpha: 0.34),
+              color: AppColors.fieldFill(context),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -51,7 +51,7 @@ class ResetCompleteSheet extends StatelessWidget {
               fontSize: 24.sp,
               letterSpacing: 1.sp,
               fontWeight: FontWeight.w500,
-              color: AppColors.primaryGreen,
+              color: AppColors.heading(context),
             ),
           ),
           SizedBox(height: 8.h),
@@ -61,7 +61,7 @@ class ResetCompleteSheet extends StatelessWidget {
             style: (Theme.of(context).textTheme.bodyMedium ??
                 const TextStyle())
                 .copyWith(
-              color: AppColors.grey,
+              color: AppColors.secondary(context),
               fontSize: 14.5.sp,
               fontWeight: FontWeight.w500,
             ),

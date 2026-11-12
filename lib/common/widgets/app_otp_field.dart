@@ -57,13 +57,13 @@ class AppOtpField extends StatelessWidget {
                         height: 56.h,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: AppColors.sageGreen.withValues(alpha: 0.34),
+                          color: AppColors.fieldFill(context),
                           borderRadius: BorderRadius.circular(10.r),
                           border: Border.all(
                             width: 0.7.sp,
                             color: isActive
-                                ? AppColors.primaryGreen
-                                : AppColors.primaryGreen
+                                ? AppColors.accent(context)
+                                : AppColors.accent(context)
                                 .withValues(alpha: 0.45),
                           ),
                         ),
@@ -72,7 +72,7 @@ class AppOtpField extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.primaryGreen,
+                            color: AppColors.strong(context),
                           ),
                         ),
                       );

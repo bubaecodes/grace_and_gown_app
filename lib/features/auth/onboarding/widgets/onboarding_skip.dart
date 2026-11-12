@@ -30,7 +30,7 @@ class OnBoardingSkip extends StatelessWidget {
               return IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios_new,
-                  color: AppColors.primaryGreen,
+                  color: AppColors.accent(context),
                   size: 22.sp,
                 ),
                 onPressed: controller.previousPage,
@@ -53,7 +53,7 @@ class OnBoardingSkip extends StatelessWidget {
                       const TextStyle())
                       .copyWith(
                     decoration: TextDecoration.underline,
-                    color: AppColors.darkGreen,
+                    color: AppColors.link(context),
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
                   ),

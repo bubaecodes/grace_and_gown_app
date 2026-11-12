@@ -25,7 +25,7 @@ class ForgotPasswordForm extends StatelessWidget {
             style: (Theme.of(context).textTheme.bodyMedium ??
                 const TextStyle())
                 .copyWith(
-              color: AppColors.grey,
+              color: AppColors.secondary(context),
               fontSize: 15.4.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -64,7 +64,7 @@ class ForgotPasswordForm extends StatelessWidget {
                     style: (Theme.of(context).textTheme.bodySmall ??
                         const TextStyle())
                         .copyWith(
-                      color: AppColors.primaryGreen,
+                      color: AppColors.accentText(context),
                       fontSize: 15.3.sp,
                       fontWeight: FontWeight.w500,
                     ),

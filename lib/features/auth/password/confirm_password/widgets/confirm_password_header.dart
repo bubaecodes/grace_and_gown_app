@@ -21,7 +21,7 @@ class ConfirmPasswordHeader extends StatelessWidget {
             fontSize: 28.sp,
             letterSpacing: 1.sp,
             fontWeight: FontWeight.w500,
-            color: AppColors.primaryGreen,
+            color: AppColors.heading(context),
           ),
         ),
         SizedBox(height: 4.h),
@@ -33,7 +33,7 @@ class ConfirmPasswordHeader extends StatelessWidget {
             style: (Theme.of(context).textTheme.bodyMedium ??
                 const TextStyle())
                 .copyWith(
-              color: AppColors.grey,
+              color: AppColors.secondary(context),
               fontSize: 15.4.sp,
               fontWeight: FontWeight.w500,
             ),

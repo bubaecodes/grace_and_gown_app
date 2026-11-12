@@ -75,9 +75,7 @@ class VerifyEmailController extends GetxController {
       type: ToastificationType.success,
     );
 
-    /// TODO: navigate to the dashboard once it's built
-    /// Get.offAllNamed(Routes.dashboardScreen);
-    Get.offAllNamed(Routes.loginScreen);
+    Get.offAllNamed(Routes.dashboardScreen);
   }
 
   @override

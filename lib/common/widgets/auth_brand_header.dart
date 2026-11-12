@@ -20,7 +20,7 @@ class AuthBrandHeader extends StatelessWidget {
               onPressed: () => Get.back(),
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                color: AppColors.primaryGreen,
+                color: AppColors.accent(context),
                 size: 20.sp,
               ),
             ),
@@ -38,7 +38,7 @@ class AuthBrandHeader extends StatelessWidget {
             fontSize: 22.sp,
             letterSpacing: 1.sp,
             fontWeight: FontWeight.w500,
-            color: AppColors.primaryGreen,
+            color: AppColors.heading(context),
           ),
         ),
         SizedBox(height: 4.h),

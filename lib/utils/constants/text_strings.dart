@@ -88,7 +88,7 @@ class AppTexts {
   static const String signupUsernameHeader = 'Enter Username';
   static const String signupUsernameSubHeader = 'This will be your public handle and part of your unique page link, fans will use this to support you.';
 
-  /// home screen texts
+  /// dashboard screen texts
   static const String homeScreenHeader = 'Here\'s what\'s happening today';
   static const String homeSetupHeader = 'Complete Your Setup';
   static const String homeSetupSubHeader = 'Finish these quick steps to unlock your full page';

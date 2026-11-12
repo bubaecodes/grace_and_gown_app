@@ -38,7 +38,7 @@ class AppFormTextField extends StatelessWidget {
       textInputAction: textInputAction,
       style: TextStyle(
         fontSize: 14.sp,
-        color: AppColors.primaryGreen,
+        color: AppColors.strong(context),
         fontWeight: FontWeight.w500,
       ),
 
@@ -46,7 +46,7 @@ class AppFormTextField extends StatelessWidget {
         hintText: hintText,
         hintStyle: TextStyle(
           fontSize: 13.sp,
-          color: AppColors.grey,
+          color: AppColors.secondary(context),
           fontWeight: FontWeight.w500,
         ),
         prefixIcon: InkWell(
@@ -54,15 +54,15 @@ class AppFormTextField extends StatelessWidget {
           child: Icon(
             prefixIcon,
             size: 20.sp,
-            color: AppColors.primaryGreen,
+            color: AppColors.accent(context),
           ),
         ),
         suffixIcon: InkWell(
           onTap: onTap,
-          child: Icon(suffixIcon, size: 20.sp, color: AppColors.primaryGreen,),
+          child: Icon(suffixIcon, size: 20.sp, color: AppColors.accent(context),),
         ),
         filled: true,
-        fillColor: AppColors.sageGreen.withValues(alpha: 0.34),
+        fillColor: AppColors.fieldFill(context),
 
         contentPadding: EdgeInsets.symmetric(
           horizontal: 10.w,
@@ -78,7 +78,7 @@ class AppFormTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(
             width: 0.7.sp,
-            color: AppColors.primaryGreen,
+            color: AppColors.accent(context),
           ),
         ),
 
@@ -86,7 +86,7 @@ class AppFormTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.r),
           borderSide: BorderSide(
             width: 1.7.sp,
-            color: AppColors.primaryGreen,
+            color: AppColors.accent(context),
           ),
         ),
       ),

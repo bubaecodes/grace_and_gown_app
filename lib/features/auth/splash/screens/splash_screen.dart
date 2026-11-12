@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
     final controller = Get.put(SplashController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.plainScaffold(context),
       body: Center(
         child: ScaleTransition(
           scale: controller.scaleAnimation,

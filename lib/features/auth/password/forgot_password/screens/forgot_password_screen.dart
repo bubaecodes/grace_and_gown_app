@@ -11,7 +11,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: AppColors.cardBg,
+      backgroundColor: AppColors.authScaffold(context),
       body: SafeArea(
         child: Column(
           children: [

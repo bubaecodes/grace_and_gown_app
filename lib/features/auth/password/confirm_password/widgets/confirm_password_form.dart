@@ -20,7 +20,7 @@ class ConfirmPasswordForm extends StatelessWidget {
       style: (Theme.of(context).textTheme.bodyMedium ??
           const TextStyle())
           .copyWith(
-        color: AppColors.grey,
+        color: AppColors.secondary(context),
         fontSize: 15.4.sp,
         fontWeight: FontWeight.w500,
       ),

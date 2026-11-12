@@ -12,6 +12,6 @@ class Routes {
 
   /// TODO: register in AppPages once the dashboard is built
   static const dashboardScreen = '/dashboard-screen';
+  static const productDetailScreen = '/product-detail-screen';
 
-///-----------------SHOP SCREENS-------------------------///
 }
