@@ -5,6 +5,9 @@ import 'package:grace_and_gown_app/features/shop/products/models/products.dart';
 /// Paths use `gown_28..gown_41` on purpose: those are the ~30–250KB .jpg
 /// versions. `gown_1..27` are ~2.3MB PNGs, which would put ~32MB of images
 /// behind this grid.
+///
+/// `imageAspect` values are the real width ÷ height of each asset, measured
+/// from the files — keep them in sync if you replace an image.
 class SampleProducts {
   SampleProducts._();
 
@@ -15,6 +18,7 @@ class SampleProducts {
       category: 'White',
       price: '₦150,000 / 3 days',
       image: 'assets/images/gowns/gown_28.jpg',
+      imageAspect: 0.4626, // 736 x 1591
       description:
       'A floor-sweeping silhouette in delicate corded lace, finished with a soft sweep train and covered buttons down the back.',
       fabric: 'Corded lace, satin lining',
@@ -27,6 +31,7 @@ class SampleProducts {
       category: 'White',
       price: '₦185,000 / 3 days',
       image: 'assets/images/gowns/gown_29.jpg',
+      imageAspect: 0.7502, // 1024 x 1365
       description:
       'Classic ball gown with a full tulle skirt and beaded bodice — built for a grand entrance.',
       fabric: 'Tulle, beaded organza',
@@ -39,6 +44,7 @@ class SampleProducts {
       category: 'White',
       price: '₦165,000 / 3 days',
       image: 'assets/images/gowns/gown_30.jpg',
+      imageAspect: 0.8017, // 736 x 918
       description:
       'A fitted mermaid cut that flares at the knee, with a sheer illusion neckline.',
       fabric: 'Crepe, illusion net',
@@ -51,6 +57,7 @@ class SampleProducts {
       category: 'Trad',
       price: '₦95,000 / 2 days',
       image: 'assets/images/gowns/gown_31.jpg',
+      imageAspect: 0.8, // 960 x 1200
       description:
       'Traditional two-piece with hand-finished geo george detailing and coral bead accents.',
       fabric: 'Geo george, lace',
@@ -63,6 +70,7 @@ class SampleProducts {
       category: 'Reception',
       price: '₦130,000 / 3 days',
       image: 'assets/images/gowns/gown_32.jpg',
+      imageAspect: 0.8, // 736 x 920
       description:
       'Minimalist satin with a cowl back and thigh-high slit — made for the reception dance floor.',
       fabric: 'Duchess satin',
@@ -75,6 +83,7 @@ class SampleProducts {
       category: 'White',
       price: '₦140,000 / 3 days',
       image: 'assets/images/gowns/gown_33.jpg',
+      imageAspect: 0.75, // 1152 x 1536
       description:
       'Soft A-line with floral appliqué scattered from bodice to hem.',
       fabric: 'Chantilly lace',
@@ -87,6 +96,7 @@ class SampleProducts {
       category: 'Court',
       price: '₦75,000 / 1 day',
       image: 'assets/images/gowns/gown_34.jpg',
+      imageAspect: 0.8077, // 735 x 910
       description:
       'Sharp, tailored look for registry day — jacket, skirt and matching fascinator.',
       fabric: 'Wool blend',
@@ -99,6 +109,7 @@ class SampleProducts {
       category: 'White',
       price: '₦88,000 / 2 days',
       image: 'assets/images/gowns/gown_35.jpg',
+      imageAspect: 0.8077, // 735 x 910
       description:
       'Playful tea-length hem with a sweetheart neckline and detachable bow.',
       fabric: 'Satin, tulle',
@@ -111,6 +122,7 @@ class SampleProducts {
       category: 'Reception',
       price: '₦175,000 / 3 days',
       image: 'assets/images/gowns/gown_36.jpg',
+      imageAspect: 0.75, // 600 x 800
       description:
       'Fully beaded sheath with cap sleeves — catches every bit of light.',
       fabric: 'Beaded mesh',
@@ -123,6 +135,7 @@ class SampleProducts {
       category: 'Trad',
       price: '₦110,000 / 2 days',
       image: 'assets/images/gowns/gown_37.jpg',
+      imageAspect: 0.6399, // 375 x 586
       description:
       'Richly coloured traditional set with hand-sewn sequin panels and a matching gele.',
       fabric: 'George, sequin lace',
@@ -135,6 +148,7 @@ class SampleProducts {
       category: 'White',
       price: '₦155,000 / 3 days',
       image: 'assets/images/gowns/gown_38.jpg',
+      imageAspect: 0.8005, // 1200 x 1499
       description:
       'Clean column silhouette with a cathedral train and jewelled belt.',
       fabric: 'Mikado silk',
@@ -147,6 +161,7 @@ class SampleProducts {
       category: 'Accessories',
       price: '₦35,000 / 2 days',
       image: 'assets/images/gowns/gown_39.jpg',
+      imageAspect: 0.802, // 1199 x 1495
       description:
       'Veil, gloves and pearl drop earrings styled to pair with any gown in the collection.',
       fabric: 'Tulle, freshwater pearl',
@@ -159,6 +174,7 @@ class SampleProducts {
       category: 'Reception',
       price: '₦145,000 / 3 days',
       image: 'assets/images/gowns/gown_40.jpg',
+      imageAspect: 0.8043, // 1200 x 1492
       description:
       'Softly draped jersey with a one-shoulder neckline and knotted waist.',
       fabric: 'Stretch jersey',
@@ -171,6 +187,7 @@ class SampleProducts {
       category: 'White',
       price: '₦195,000 / 3 days',
       image: 'assets/images/gowns/gown_41.jpg',
+      imageAspect: 0.8106, // 736 x 908
       description:
       'Structured corset bodice with a dramatic flared skirt and off-shoulder straps.',
       fabric: 'Brocade, boned satin',

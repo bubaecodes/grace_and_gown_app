@@ -395,21 +395,26 @@ class ProductDetailScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    /// Full-width hero image — contain so nothing is cropped.
+                    /// Full-bleed hero image. The box matches the photo's own
+                    /// aspect ratio, so `cover` shows the whole image edge to
+                    /// edge — no cropping, no letterbox bands. Height follows
+                    /// the photo (the page scrolls).
                     Hero(
                       tag: 'product-${product.id}',
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16.r),
-                        child: Container(
-                          // Fills the empty bands `contain` leaves on the sides,
-                          // so it reads as a studio backdrop, not a gap.
-                          color: AppColors.fieldFill(context),
+                        child: SizedBox(
                           width: double.infinity,
-                          height: 460.h,
-                          alignment: Alignment.center,
-                          child: Image.asset(
-                            product.image,
-                            fit: BoxFit.contain,
+                          child: AspectRatio(
+                            aspectRatio: product.imageAspect,
+                            child: Container(
+                              color: AppColors.fieldFill(context),
+                              alignment: Alignment.center,
+                              child: Image.asset(
+                                product.image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ),
                       ),
