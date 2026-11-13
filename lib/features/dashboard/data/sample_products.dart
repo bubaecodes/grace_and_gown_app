@@ -11,6 +11,7 @@ import 'package:grace_and_gown_app/features/shop/products/models/products.dart';
 class SampleProducts {
   SampleProducts._();
 
+  /// The curated catalogue shown on the home grid.
   static const List<Product> items = [
     Product(
       id: 'g28',
@@ -195,4 +196,55 @@ class SampleProducts {
       availability: 'Limited',
     ),
   ];
+
+  /// Every image in `assets/images/gowns` (gown_1 … gown_74) as a product, in
+  /// numeric order. The 14 curated items above keep their real data; the rest
+  /// get generated entries built from [_generatedAspects].
+  static final List<Product> all = _buildAll();
+
+  /// Real width ÷ height for the images that have no curated entry.
+  static const Map<int, double> _generatedAspects = {
+    1: 0.6667, 2: 0.6656, 3: 0.6656, 4: 0.6656, 5: 0.6656, 6: 0.6656,
+    7: 0.6656, 8: 0.6656, 9: 0.6656, 10: 0.6656, 11: 0.6656, 12: 0.6656,
+    13: 0.6656, 14: 0.6656, 15: 0.6656, 16: 0.7143, 17: 0.6656,
+    18: 0.6656, 19: 0.6656, 20: 0.6656, 21: 0.6656, 22: 0.6667,
+    23: 0.6656, 24: 0.6667, 25: 0.6656, 26: 0.6656, 27: 0.6667,
+    42: 0.8, 43: 0.8145, 44: 0.8042, 45: 0.872, 46: 0.8, 47: 0.8285,
+    48: 0.8, 49: 0.9223, 50: 0.7564, 51: 0.5627, 52: 0.7993, 53: 0.8,
+    54: 0.5625, 55: 0.8, 56: 0.6667, 57: 0.802, 58: 0.7356, 59: 0.6674,
+    60: 0.8, 61: 0.7503, 62: 0.8, 63: 1.0059, 64: 0.6667, 65: 0.8212,
+    66: 0.75, 67: 0.8, 68: 0.5627, 69: 0.7503, 70: 0.8, 71: 0.6667,
+    72: 0.6667, 73: 0.6667, 74: 0.8,
+  };
+
+  static List<Product> _buildAll() {
+    final curated = {
+      for (final p in items) int.parse(p.id.substring(1)): p,
+    };
+
+    return List.unmodifiable([
+      for (var n = 1; n <= 74; n++) curated[n] ?? _generate(n),
+    ]);
+  }
+
+  /// Placeholder entry for an image that has no hand-written data yet.
+  static Product _generate(int n) {
+    final ext = n <= 27 ? 'png' : 'jpg'; // gown_1..27 are PNG, the rest JPEG
+    final price = 90 + (n % 6) * 15; // ₦90k–₦165k, deterministic variety
+
+    return Product(
+      id: 'g$n',
+      name: 'Gown ${n.toString().padLeft(2, '0')}',
+      category: 'White',
+      price: '₦$price,000 / 3 days',
+      image: 'assets/images/gowns/gown_$n.$ext',
+      imageAspect: _generatedAspects[n] ?? 0.8,
+      description:
+      'Part of the Grace & Gown collection, photographed exactly as shown. '
+      'Ask in-store for fabric, sizing and styling details.',
+      fabric: 'See in-store',
+      sizes: ['8', '10', '12', '14'],
+      availability: 'Available',
+    );
+  }
 }
