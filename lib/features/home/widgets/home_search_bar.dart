@@ -49,21 +49,30 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
 
     // `stretch` pins the filter button to the field's exact height, so the two
     // can never drift apart (different font scales, density, etc.).
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(child: _SearchField(
-          controller: _text,
-          showClear: _typed.isNotEmpty,
-          onChanged: _onChanged,
-          onClear: _clear,
-        )),
-        SizedBox(width: 10.w),
-        _FilterButton(
-          highlighted: home.hasSort,
-          onTap: () => _openSortSheet(context),
-        ),
-      ],
+    //
+    // The [IntrinsicHeight] is what makes that legal: this row sits in a
+    // Column inside a SingleChildScrollView, so its height constraint is
+    // unbounded. Stretching to an unbounded height is a layout error
+    // ("BoxConstraints forces an infinite height") that kills the frame and
+    // leaves the home screen blank. IntrinsicHeight measures the row first and
+    // hands it a real height to stretch to — same trick as [ProductGrid].
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(child: _SearchField(
+            controller: _text,
+            showClear: _typed.isNotEmpty,
+            onChanged: _onChanged,
+            onClear: _clear,
+          )),
+          SizedBox(width: 10.w),
+          _FilterButton(
+            highlighted: home.hasSort,
+            onTap: () => _openSortSheet(context),
+          ),
+        ],
+      ),
     );
   }
 
