@@ -28,7 +28,7 @@ class AppBottomNav extends StatelessWidget {
       activeIcon: Icons.home_rounded,
     ),
     _NavItem(
-      label: 'Gowns',
+      label: 'Category',
       icon: Icons.checkroom_outlined,
       activeIcon: Icons.checkroom_rounded,
     ),

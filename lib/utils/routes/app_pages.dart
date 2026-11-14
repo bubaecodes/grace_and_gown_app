@@ -6,6 +6,7 @@ import 'package:grace_and_gown_app/features/auth/password/forgot_password/screen
 import 'package:grace_and_gown_app/features/auth/password/verify_email/screens/verify_email_screen.dart';
 import 'package:grace_and_gown_app/features/auth/password/reset_link/screens/reset_link_screen.dart';
 import 'package:grace_and_gown_app/features/auth/signup/screens/signup_screen.dart';
+import 'package:grace_and_gown_app/features/category/screens/category_products_screen.dart';
 import 'package:grace_and_gown_app/features/dashboard/screens/dashboard_screen.dart';
 import 'package:grace_and_gown_app/features/shop/products/screens/product_details_screen.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
@@ -49,6 +50,10 @@ class AppPages {
     GetPage(
       name: Routes.productDetailScreen,
       page: () => const ProductDetailScreen(),
+    ),
+    GetPage(
+      name: Routes.categoryProductsScreen,
+      page: () => const CategoryProductsScreen(),
     ),
   ];
 }

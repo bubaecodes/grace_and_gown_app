@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/features/dashboard/controllers/dashboard_controller.dart';
 import 'package:grace_and_gown_app/features/dashboard/screens/bookings_screen.dart';
-import 'package:grace_and_gown_app/features/gowns/screens/gowns_screen.dart';
+import 'package:grace_and_gown_app/features/category/screens/category_screen.dart';
 import 'package:grace_and_gown_app/features/dashboard/screens/profile_screen.dart';
 import 'package:grace_and_gown_app/features/dashboard/screens/wishlist_screen.dart';
 import 'package:grace_and_gown_app/features/dashboard/widgets/app_bottom_nav.dart';

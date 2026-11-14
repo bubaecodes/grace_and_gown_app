@@ -71,7 +71,7 @@ flutter:
     - assets/fonts/
     - assets/images/bouquets/
     - assets/images/courts/
-    - assets/images/gowns/
+    - assets/images/category/
     - assets/images/randoms/
     - assets/images/onboarding/
   #   - images/a_dot_ham.jpeg

@@ -31,7 +31,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
       title: 'New Arrivals',
       subtitle: 'The spring bridal collection just landed.',
       action: 'Shop Now',
-      image: 'assets/images/gowns/gown_5.png',
+      image: 'assets/images/category/gown_5.png',
     ),
     const _Promo(
       title: 'Court Ready',

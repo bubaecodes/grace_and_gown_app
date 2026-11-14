@@ -14,4 +14,7 @@ class Routes {
   static const dashboardScreen = '/dashboard-screen';
   static const productDetailScreen = '/product-detail-screen';
 
+  /// Product list for one category — takes a `GownCategory` as arguments.
+  static const categoryProductsScreen = '/category-products-screen';
+
 }

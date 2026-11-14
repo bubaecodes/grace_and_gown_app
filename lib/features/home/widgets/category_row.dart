@@ -1,45 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:grace_and_gown_app/features/category/data/gown_categories.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
-import 'package:grace_and_gown_app/utils/toasts/custom_snackbar.dart';
-import 'package:toastification/toastification.dart';
+import 'package:grace_and_gown_app/utils/routes/routes.dart';
 
-class _Category {
-  const _Category(this.label, this.icon);
-
-  final String label;
-  final IconData icon;
-}
-
+/// Home-screen chip row. Same five categories as the Category tab — tapping a
+/// chip opens that category's nested product list instead of a toast.
 class CategoryRow extends StatelessWidget {
   const CategoryRow({super.key});
 
-  static const List<_Category> _categories = [
-    _Category('White', Icons.diamond_outlined),
-    _Category('Court', Icons.account_balance_outlined),
-    _Category('Trad', Icons.emoji_people_outlined),
-    _Category('Accessories', Icons.watch_outlined),
-    _Category('Reception', Icons.celebration_outlined),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    /// Labels are white (as requested), so each chip needs a dark backing —
-    /// white text on the light scaffold would be invisible.
-    final chipBg =
-    AppColors.isDark(context) ? AppColors.darkCard : AppColors.darkGreen;
+    final categories = GownCategory.all;
 
     return Row(
       children: [
-        for (var i = 0; i < _categories.length; i++) ...[
+        for (var i = 0; i < categories.length; i++) ...[
           if (i > 0) SizedBox(width: 8.w),
-          Expanded(
-            child: _CategoryChip(
-              category: _categories[i],
-              //background: chipBg,
-              background: AppColors.sageGreen,
-            ),
-          ),
+          Expanded(child: _CategoryChip(category: categories[i])),
         ],
       ],
     );
@@ -47,24 +26,22 @@ class CategoryRow extends StatelessWidget {
 }
 
 class _CategoryChip extends StatelessWidget {
-  const _CategoryChip({required this.category, required this.background});
+  const _CategoryChip({required this.category});
 
-  final _Category category;
-  final Color background;
+  final GownCategory category;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => CustomSnackBar.showSafe(
-        title: category.label,
-        message: '${category.label} filtering is coming next.',
-        type: ToastificationType.info,
+      onTap: () => Get.toNamed(
+        Routes.categoryProductsScreen,
+        arguments: category,
       ),
       borderRadius: BorderRadius.circular(14.r),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 4.w),
         decoration: BoxDecoration(
-          color: background,
+          color: AppColors.sageGreen,
           borderRadius: BorderRadius.circular(14.r),
           border: Border.all(
             color: AppColors.accent(context).withValues(alpha: 0.5),
