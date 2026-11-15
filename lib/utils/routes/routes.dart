@@ -17,4 +17,6 @@ class Routes {
   /// Product list for one category — takes a `GownCategory` as arguments.
   static const categoryProductsScreen = '/category-products-screen';
 
+  /// Booking fee checkout — the ₦20,000 hold charge before a visit exists.
+  static const paymentScreen = '/payment-screen';
 }

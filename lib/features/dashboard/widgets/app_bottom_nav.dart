@@ -34,7 +34,7 @@ class AppBottomNav extends StatelessWidget {
     ),
     /// Bump badgeCount once you have a real cart.
     _NavItem(
-      label: 'Cart',
+      label: 'Wishlist',
       icon: Icons.shopping_bag_outlined,
       activeIcon: Icons.shopping_bag_rounded,
     ),

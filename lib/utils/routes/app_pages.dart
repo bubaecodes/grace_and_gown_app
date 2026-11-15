@@ -7,6 +7,7 @@ import 'package:grace_and_gown_app/features/auth/password/verify_email/screens/v
 import 'package:grace_and_gown_app/features/auth/password/reset_link/screens/reset_link_screen.dart';
 import 'package:grace_and_gown_app/features/auth/signup/screens/signup_screen.dart';
 import 'package:grace_and_gown_app/features/category/screens/category_products_screen.dart';
+import 'package:grace_and_gown_app/features/bookings/screens/payment_screen.dart';
 import 'package:grace_and_gown_app/features/dashboard/screens/dashboard_screen.dart';
 import 'package:grace_and_gown_app/features/shop/products/screens/product_details_screen.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
@@ -54,6 +55,10 @@ class AppPages {
     GetPage(
       name: Routes.categoryProductsScreen,
       page: () => const CategoryProductsScreen(),
+    ),
+    GetPage(
+      name: Routes.paymentScreen,
+      page: () => const PaymentScreen(),
     ),
   ];
 }

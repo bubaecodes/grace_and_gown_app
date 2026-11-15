@@ -1,30 +1,42 @@
-// This is a basic Flutter widget test.
+// Boot smoke test — the app's entry point (`MyApp` in main.dart) through
+// the splash → onboarding hand-off.
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Every other test builds its own harness; this one is here to catch the
+// two things they can't: whether the real wrapper stack
+// (ToastificationWrapper / OverlaySupport / ScreenUtilInit / GetMaterialApp
+// with the route table) still boots, and whether the app still lands where
+// the user expects after the splash timer.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:grace_and_gown_app/features/auth/onboarding/screens/onboarding_screen.dart';
+import 'package:grace_and_gown_app/features/auth/splash/screens/splash_screen.dart';
 import 'package:grace_and_gown_app/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('app boots to splash, then hands off to onboarding',
+      (tester) async {
+    // Match the design size the app uses on a phone (see main_app.dart).
+    tester.view.physicalSize = const Size(440 * 3, 976 * 3);
+    tester.view.devicePixelRatio = 3.0;
+    addTearDown(tester.view.reset);
+
     await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // The splash renders first, with nothing else on screen.
+    expect(find.byType(SplashScreen), findsOneWidget);
+    expect(find.byType(OnboardingScreen), findsNothing);
+
+    // SplashController waits 6s before `Get.offAllNamed(onboarding)`.
+    //
+    // Deliberately `pump(Duration)` and not `pumpAndSettle`: the splash
+    // runs a 5s scale animation, so settle would spin for its whole
+    // duration — and would hang entirely if anything keeps ticking.
+    await tester.pump(const Duration(seconds: 7));
+    await tester.pump(const Duration(seconds: 1));
+
+    expect(find.byType(SplashScreen), findsNothing);
+    expect(find.byType(OnboardingScreen), findsOneWidget);
   });
 }

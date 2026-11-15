@@ -9,8 +9,6 @@ class SplashController extends GetxController with GetSingleTickerProviderStateM
 
   @override
   void onInit() {
-    print('splash showeddddd');
-
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),

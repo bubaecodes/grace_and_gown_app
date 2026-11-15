@@ -374,11 +374,11 @@ class ProductDetailScreen extends StatelessWidget {
                   Obx(() => IconButton(
                     onPressed: controller.toggleFavourite,
                     icon: Icon(
-                      controller.isFavourite.value
+                      controller.isFavourite
                           ? Icons.favorite_rounded
                           : Icons.favorite_outline_rounded,
                       size: 22.sp,
-                      color: controller.isFavourite.value
+                      color: controller.isFavourite
                           ? AppColors.error
                           : AppColors.accent(context),
                     ),
