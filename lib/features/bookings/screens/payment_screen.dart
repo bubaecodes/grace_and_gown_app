@@ -92,9 +92,9 @@ class _Header extends StatelessWidget {
         Text(
           'Checkout',
           style: TextStyle(
-            fontFamily: 'Prata',
             fontSize: 21.sp,
-            letterSpacing: 0.8.sp,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.4.sp,
             color: AppColors.heading(context),
           ),
         ),

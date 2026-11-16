@@ -23,25 +23,36 @@ class CategoryProductsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () => Get.back(),
-                padding: EdgeInsets.zero,
-                constraints: BoxConstraints(minWidth: 32.w, minHeight: 32.h),
-                icon: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: AppColors.accent(context),
-                  size: 20.sp,
-                ),
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                category.title,
-                style: TextStyle(
-                  fontFamily: 'Prata',
-                  fontSize: 24.sp,
-                  letterSpacing: 1.sp,
-                  color: AppColors.heading(context),
-                ),
+              /// Back arrow and the gown type share one row — the leading
+              /// icon reads as attached to its title.
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () => Get.back(),
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(minWidth: 32.w, minHeight: 32.h),
+                    icon: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: AppColors.accent(context),
+                      size: 20.sp,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Text(
+                      category.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.4.sp,
+                        color: AppColors.heading(context),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 6.h),
               Text(

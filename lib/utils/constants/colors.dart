@@ -42,7 +42,7 @@ class AppColors {
   static bool isDark(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark;
 
-  /// Display / screen titles (the Prata headings).
+  /// Display / screen titles (the bold body-font headings).
   /// [primaryGreen] is near-black, so dark mode swaps it for [softBeige].
   static Color heading(BuildContext context) =>
       isDark(context) ? softBeige : primaryGreen;

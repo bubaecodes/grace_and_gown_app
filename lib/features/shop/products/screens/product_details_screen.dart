@@ -348,41 +348,47 @@ class ProductDetailScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            /// Top bar
+            /// Top bar — icons pinned to the edges, title optically centred
+            /// between them instead of floating as loose text.
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 6.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  IconButton(
-                    onPressed: () => Get.back(),
-                    icon: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      size: 20.sp,
-                      color: AppColors.accent(context),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () => Get.back(),
+                        icon: Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          size: 20.sp,
+                          color: AppColors.accent(context),
+                        ),
+                      ),
+                      Obx(() => IconButton(
+                            onPressed: controller.toggleFavourite,
+                            icon: Icon(
+                              controller.isFavourite
+                                  ? Icons.favorite_rounded
+                                  : Icons.favorite_outline_rounded,
+                              size: 22.sp,
+                              color: controller.isFavourite
+                                  ? AppColors.error
+                                  : AppColors.accent(context),
+                            ),
+                          )),
+                    ],
                   ),
                   Text(
                     'Product Details',
                     style: TextStyle(
-                      fontFamily: 'Prata',
-                      fontSize: 17.sp,
-                      letterSpacing: 0.5.sp,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.4.sp,
                       color: AppColors.heading(context),
                     ),
                   ),
-                  Obx(() => IconButton(
-                    onPressed: controller.toggleFavourite,
-                    icon: Icon(
-                      controller.isFavourite
-                          ? Icons.favorite_rounded
-                          : Icons.favorite_outline_rounded,
-                      size: 22.sp,
-                      color: controller.isFavourite
-                          ? AppColors.error
-                          : AppColors.accent(context),
-                    ),
-                  )),
                 ],
               ),
             ),
@@ -537,7 +543,7 @@ class ProductDetailScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: InkWell(
-                      onTap: controller.addToCart,
+                      onTap: controller.addToWishlist,
                       borderRadius: BorderRadius.circular(12.r),
                       child: Container(
                         height: 60.h,
@@ -548,7 +554,9 @@ class ProductDetailScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12.r),
                         ),
                         child: Text(
-                          'Add to Cart',
+                          'Add to Wishlist',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 15.sp,
                             fontWeight: FontWeight.w700,

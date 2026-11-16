@@ -3,50 +3,48 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/features/dashboard/controllers/dashboard_controller.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class _NavItem {
   const _NavItem({
     required this.label,
     required this.icon,
-    required this.activeIcon,
-    this.badgeCount = 0,
   });
 
   final String label;
   final IconData icon;
-  final IconData activeIcon;
-  final int badgeCount;
 }
 
+/// Floating pill bottom bar.
+///
+/// Instead of a full-width strip glued to the bottom edge, the bar sits on a
+/// rounded card with a soft shadow and margin on every side, so the scaffold
+/// background shows around it. The active tab gets an animated tinted pill
+/// behind its icon + label; icons are Iconsax for a lighter, more polished
+/// look than the stock Material outlines.
 class AppBottomNav extends StatelessWidget {
   const AppBottomNav({super.key});
 
   static const List<_NavItem> _items = [
     _NavItem(
       label: 'Home',
-      icon: Icons.home_outlined,
-      activeIcon: Icons.home_rounded,
+      icon: Iconsax.home_1,
     ),
     _NavItem(
       label: 'Category',
-      icon: Icons.checkroom_outlined,
-      activeIcon: Icons.checkroom_rounded,
+      icon: Iconsax.category,
     ),
-    /// Bump badgeCount once you have a real cart.
     _NavItem(
       label: 'Wishlist',
-      icon: Icons.shopping_bag_outlined,
-      activeIcon: Icons.shopping_bag_rounded,
+      icon: Iconsax.heart,
     ),
     _NavItem(
       label: 'Bookings',
-      icon: Icons.calendar_month_outlined,
-      activeIcon: Icons.calendar_month_rounded,
+      icon: Iconsax.calendar,
     ),
     _NavItem(
       label: 'Profile',
-      icon: Icons.person_outline_rounded,
-      activeIcon: Icons.person_rounded,
+      icon: Iconsax.user,
     ),
   ];
 
@@ -54,18 +52,27 @@ class AppBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = DashboardController.instance;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.elevatedSurface(context),
-        border: Border(
-          top: BorderSide(
-            color: AppColors.accent(context).withValues(alpha: 0.35),
-            width: 0.8,
+    // SafeArea first so the pill (and its shadow) clears the home-indicator
+    // inset; the margin then floats it off the screen edges.
+    return SafeArea(
+      top: false,
+      child: Container(
+        margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
+        decoration: BoxDecoration(
+          color: AppColors.elevatedSurface(context),
+          borderRadius: BorderRadius.circular(26.r),
+          border: Border.all(
+            color: AppColors.accent(context).withValues(alpha: 0.2),
           ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.black.withValues(alpha: 0.14),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
+            ),
+          ],
         ),
-      ),
-      child: SafeArea(
-        top: false,
         child: Obx(() {
           final current = controller.selectedIndex.value;
 
@@ -80,34 +87,26 @@ class AppBottomNav extends StatelessWidget {
               return Expanded(
                 child: InkWell(
                   onTap: () => controller.goToTab(i),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                  borderRadius: BorderRadius.circular(20.r),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.easeOutCubic,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 7.h,
+                      horizontal: 4.w,
+                    ),
+                    decoration: BoxDecoration(
+                      color: selected
+                          ? AppColors.sageGreen.withValues(
+                              alpha: AppColors.isDark(context) ? 0.18 : 0.30,
+                            )
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Icon(
-                              selected ? item.activeIcon : item.icon,
-                              size: 23.sp,
-                              color: color,
-                            ),
-                            if (item.badgeCount > 0)
-                              Positioned(
-                                right: -2,
-                                top: -2,
-                                child: Container(
-                                  width: 8.sp,
-                                  height: 8.sp,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.error,
-                                    shape: BoxShape.circle,
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
+                        Icon(item.icon, size: 23.sp, color: color),
                         SizedBox(height: 4.h),
                         Text(
                           item.label,
@@ -115,8 +114,9 @@ class AppBottomNav extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 10.5.sp,
-                            fontWeight:
-                            selected ? FontWeight.w700 : FontWeight.w500,
+                            fontWeight: selected
+                                ? FontWeight.w700
+                                : FontWeight.w500,
                             color: color,
                           ),
                         ),

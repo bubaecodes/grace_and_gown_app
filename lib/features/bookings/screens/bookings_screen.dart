@@ -28,9 +28,9 @@ class BookingsScreen extends StatelessWidget {
               Text(
                 'Bookings',
                 style: TextStyle(
-                  fontFamily: 'Prata',
                   fontSize: 24.sp,
-                  letterSpacing: 1.sp,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.4.sp,
                   color: AppColors.heading(context),
                 ),
               ),

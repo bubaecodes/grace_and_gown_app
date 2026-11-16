@@ -16,9 +16,9 @@ class HomeHeader extends StatelessWidget {
           child: Text(
             'Find Your Perfect Gown',
             style: TextStyle(
-              fontFamily: 'Prata',
               fontSize: 24.sp,
-              letterSpacing: 0.6.sp,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 0.4.sp,
               height: 1.25,
               color: AppColors.heading(context),
             ),
