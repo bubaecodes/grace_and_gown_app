@@ -6,6 +6,7 @@ import 'package:grace_and_gown_app/features/profile/widgets/profile_header_card.
 import 'package:grace_and_gown_app/features/profile/widgets/profile_logout_button.dart';
 import 'package:grace_and_gown_app/features/profile/widgets/profile_menu_section.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
+import 'package:grace_and_gown_app/utils/routes/routes.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -46,15 +47,12 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-/// The three menu groups. Each row raises a coming-soon toast for now —
-/// swap the callback for real navigation as sub-screens get built.
+/// The three menu groups — each row pushes its Profile sub-screen.
 class _ProfileMenu extends StatelessWidget {
   const _ProfileMenu();
 
   @override
   Widget build(BuildContext context) {
-    final controller = ProfileController.instance;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -64,17 +62,17 @@ class _ProfileMenu extends StatelessWidget {
             ProfileMenuItem(
               icon: Icons.person_outline_rounded,
               label: 'My Details',
-              onTap: () => controller.showComingSoon('My Details'),
+              onTap: () => Get.toNamed(Routes.editProfileScreen),
             ),
             ProfileMenuItem(
               icon: Icons.location_on_outlined,
               label: 'Addresses',
-              onTap: () => controller.showComingSoon('Addresses'),
+              onTap: () => Get.toNamed(Routes.addressesScreen),
             ),
             ProfileMenuItem(
               icon: Icons.credit_card_outlined,
               label: 'Payment Methods',
-              onTap: () => controller.showComingSoon('Payment Methods'),
+              onTap: () => Get.toNamed(Routes.paymentMethodsScreen),
             ),
           ],
         ),
@@ -85,17 +83,17 @@ class _ProfileMenu extends StatelessWidget {
             ProfileMenuItem(
               icon: Icons.help_outline_rounded,
               label: 'Help Center',
-              onTap: () => controller.showComingSoon('Help Center'),
+              onTap: () => Get.toNamed(Routes.helpCenterScreen),
             ),
             ProfileMenuItem(
               icon: Icons.mail_outline_rounded,
               label: 'Contact Us',
-              onTap: () => controller.showComingSoon('Contact Us'),
+              onTap: () => Get.toNamed(Routes.contactUsScreen),
             ),
             ProfileMenuItem(
               icon: Icons.info_outline_rounded,
               label: 'About',
-              onTap: () => controller.showComingSoon('About'),
+              onTap: () => Get.toNamed(Routes.aboutScreen),
             ),
           ],
         ),
@@ -106,12 +104,12 @@ class _ProfileMenu extends StatelessWidget {
             ProfileMenuItem(
               icon: Icons.notifications_none_rounded,
               label: 'Notifications',
-              onTap: () => controller.showComingSoon('Notifications'),
+              onTap: () => Get.toNamed(Routes.notificationsScreen),
             ),
             ProfileMenuItem(
               icon: Icons.lock_outline_rounded,
               label: 'Privacy & Security',
-              onTap: () => controller.showComingSoon('Privacy & Security'),
+              onTap: () => Get.toNamed(Routes.privacySecurityScreen),
             ),
           ],
         ),

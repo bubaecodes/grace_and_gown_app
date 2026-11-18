@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:grace_and_gown_app/features/auth/signup/screens/signup_screen.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
+import 'package:grace_and_gown_app/utils/routes/routes.dart';
 
 class LoginFooter extends StatelessWidget {
   const LoginFooter({super.key});
@@ -29,14 +29,10 @@ class LoginFooter extends StatelessWidget {
                   fontSize: 15.3.sp,
                   fontWeight: FontWeight.w500,
                 ),
+                // Replace instead of push: toggling login ↔ signup must not
+                // stack a new route each time.
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    //Get.back();
-
-                    Get.to(
-                      const SignupScreen(),
-                    );
-                  },
+                  ..onTap = () => Get.offNamed(Routes.signupScreen),
               ),
             ]
         ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
 import 'package:grace_and_gown_app/utils/toasts/custom_snackbar.dart';
 import 'package:toastification/toastification.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ResetLinkController extends GetxController {
   static ResetLinkController get instance => Get.find();
@@ -48,13 +49,24 @@ class ResetLinkController extends GetxController {
     startResendCountdown();
   }
 
-  void openEmailApp() {
-    /// TODO: use url_launcher to open the user's mail app
-    CustomSnackBar.showSafe(
-      title: 'Opening Mail',
-      message: 'Redirecting you to your email app...',
-      type: ToastificationType.info,
-    );
+  /// Hands the user to their mail app so they can grab the code, then walks
+  /// the flow forward to the code-entry step. Launching is best-effort —
+  /// some devices have no mail app configured, which shouldn't strand the
+  /// user on this screen.
+  Future<void> openEmailApp() async {
+    try {
+      await launchUrl(
+        Uri(scheme: 'mailto'),
+        mode: LaunchMode.externalApplication,
+      );
+    } catch (_) {
+      CustomSnackBar.showSafe(
+        title: 'Opening Mail',
+        message: 'We couldn\'t open a mail app on this device — '
+            'check your inbox another way.',
+        type: ToastificationType.info,
+      );
+    }
 
     /// In production this screen is reached from the email deep link and
     /// the confirm-password step follows automatically. For now we walk

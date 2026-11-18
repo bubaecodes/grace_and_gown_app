@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
+import 'package:grace_and_gown_app/utils/storage/app_storage.dart';
 import 'package:grace_and_gown_app/utils/toasts/custom_snackbar.dart';
 import 'package:toastification/toastification.dart';
 
@@ -74,6 +75,10 @@ class VerifyEmailController extends GetxController {
       message: 'Your email has been verified successfully!',
       type: ToastificationType.success,
     );
+
+    // Signed up and verified — remember the session so the next launch
+    // skips auth entirely.
+    AppStorage.isLoggedIn = true;
 
     Get.offAllNamed(Routes.dashboardScreen);
   }

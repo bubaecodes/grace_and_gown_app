@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/features/profile/controllers/profile_controller.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
+import 'package:grace_and_gown_app/utils/routes/routes.dart';
 
 /// Avatar + name/email/phone card at the top of the Profile tab.
 class ProfileHeaderCard extends StatelessWidget {
@@ -96,7 +97,7 @@ class ProfileHeaderCard extends StatelessWidget {
           ),
           SizedBox(width: 8.w),
           InkWell(
-            onTap: () => controller.showComingSoon('Edit Profile'),
+            onTap: () => Get.toNamed(Routes.editProfileScreen),
             borderRadius: BorderRadius.circular(10.r),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),

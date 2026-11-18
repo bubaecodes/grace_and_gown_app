@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
-import 'package:grace_and_gown_app/utils/toasts/custom_snackbar.dart';
-import 'package:toastification/toastification.dart';
+import 'package:grace_and_gown_app/utils/storage/app_storage.dart';
 
 /// State for the Profile tab.
 ///
@@ -25,15 +24,24 @@ class ProfileController extends GetxController {
     return parts.map((p) => p[0].toUpperCase()).join();
   }
 
-  /// Placeholder for features that aren't built yet.
-  void showComingSoon(String feature) {
-    CustomSnackBar.showSafe(
-      title: feature,
-      message: '$feature is coming soon.',
-      type: ToastificationType.info,
-    );
+  /// Writes the edited profile fields back onto the reactive state, so the
+  /// header card (and anything else reading it) updates immediately.
+  /// Validation happens in the edit screen before this is called.
+  void saveProfile({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
+    this.name.value = name;
+    this.email.value = email;
+    this.phone.value = phone;
   }
 
   /// Sign out and return to the login screen, clearing the nav stack.
-  void logout() => Get.offAllNamed(Routes.loginScreen);
+  /// Also clears the persisted session flag so a relaunch lands on login
+  /// instead of auto-logging-in.
+  void logout() {
+    AppStorage.isLoggedIn = false;
+    Get.offAllNamed(Routes.loginScreen);
+  }
 }

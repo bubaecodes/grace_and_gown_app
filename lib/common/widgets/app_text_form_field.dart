@@ -49,18 +49,26 @@ class AppFormTextField extends StatelessWidget {
           color: AppColors.secondary(context),
           fontWeight: FontWeight.w500,
         ),
-        prefixIcon: InkWell(
-          onTap: iconToggle,
-          child: Icon(
-            prefixIcon,
-            size: 20.sp,
-            color: AppColors.accent(context),
-          ),
+        // The prefix is decoration only (lock, mail, phone, ...). It used to
+        // carry the visibility toggle, which made the eye icon dead and the
+        // lock steal the tap — the toggle lives on the suffix below.
+        prefixIcon: Icon(
+          prefixIcon,
+          size: 20.sp,
+          color: AppColors.accent(context),
         ),
-        suffixIcon: InkWell(
-          onTap: onTap,
-          child: Icon(suffixIcon, size: 20.sp, color: AppColors.accent(context),),
-        ),
+        // The suffix is the interactive icon (password eye). Callers may pass
+        // either `onTap` or `iconToggle`; both mean "toggle this icon".
+        suffixIcon: suffixIcon == null
+            ? null
+            : InkWell(
+                onTap: onTap ?? iconToggle,
+                child: Icon(
+                  suffixIcon,
+                  size: 20.sp,
+                  color: AppColors.accent(context),
+                ),
+              ),
         filled: true,
         fillColor: AppColors.fieldFill(context),
 

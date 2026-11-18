@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
-import 'package:grace_and_gown_app/utils/toasts/custom_snackbar.dart';
-import 'package:toastification/toastification.dart';
+import 'package:grace_and_gown_app/utils/routes/routes.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -26,11 +26,8 @@ class HomeHeader extends StatelessWidget {
         ),
         SizedBox(width: 10.w),
         IconButton(
-          onPressed: () => CustomSnackBar.showSafe(
-            title: 'Notifications',
-            message: 'You have no new notifications yet.',
-            type: ToastificationType.info,
-          ),
+          tooltip: 'Notifications',
+          onPressed: () => Get.toNamed(Routes.notificationsScreen),
           icon: Stack(
             clipBehavior: Clip.none,
             children: [

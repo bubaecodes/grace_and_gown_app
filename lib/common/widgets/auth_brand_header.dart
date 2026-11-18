@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
 import 'package:grace_and_gown_app/utils/constants/image_strings.dart';
+import 'package:grace_and_gown_app/utils/routes/routes.dart';
 
 class AuthBrandHeader extends StatelessWidget {
   const AuthBrandHeader({super.key, this.showBackButton = true});
@@ -17,7 +18,16 @@ class AuthBrandHeader extends StatelessWidget {
           Align(
             alignment: Alignment.centerLeft,
             child: IconButton(
-              onPressed: () => Get.back(),
+              // Pop only when there is something behind this screen; when it
+              // is the first route (deep link / offAllNamed), fall back to
+              // login so the button can never quit the app.
+              onPressed: () {
+                if (Get.key.currentState?.canPop() ?? false) {
+                  Get.back();
+                } else {
+                  Get.offAllNamed(Routes.loginScreen);
+                }
+              },
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
                 color: AppColors.accent(context),

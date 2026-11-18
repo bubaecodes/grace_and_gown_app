@@ -32,7 +32,7 @@ class CustomSnackBar {
     double borderRadius = 16,
     bool showProgressBar = true,
     ToastificationStyle style = ToastificationStyle.fillColored,
-    CloseButtonShowType closeButtonShowType = CloseButtonShowType.onHover,
+    ToastCloseButton closeButton = const ToastCloseButton(),
     bool pauseOnHover = true,
     bool dragToClose = true,
     bool applyBlurEffect = true,
@@ -82,7 +82,7 @@ class CustomSnackBar {
         borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: _getBoxShadow(type),
         showProgressBar: showProgressBar,
-        closeButtonShowType: closeButtonShowType,
+        closeButton: closeButton,
         closeOnClick: false,
         pauseOnHover: pauseOnHover,
         dragToClose: dragToClose && isDismissible,
@@ -137,7 +137,8 @@ class CustomSnackBar {
       alignment: alignment,
       autoCloseDuration: duration,
       showProgressBar: showProgressBar,
-      closeButtonShowType: CloseButtonShowType.always,
+      closeButton:
+          const ToastCloseButton(showType: CloseButtonShowType.always),
       applyBlurEffect: true,
     );
   }

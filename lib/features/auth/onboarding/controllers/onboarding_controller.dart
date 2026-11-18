@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
 import 'package:grace_and_gown_app/features/auth/login/screens/login_screen.dart';
+import 'package:grace_and_gown_app/utils/storage/app_storage.dart';
 
 class OnboardingController extends GetxController {
   static OnboardingController get instance => Get.find();
@@ -18,6 +19,9 @@ class OnboardingController extends GetxController {
   void nextPage() {
     if (currentPageIndex.value == 2) {
       FocusManager.instance.primaryFocus?.unfocus();
+      // Leaving onboarding for good — remember it so the next launch goes
+      // straight to login (or the dashboard, if the session is still warm).
+      AppStorage.seenOnboarding = true;
       Get.off(() => const LoginScreen());
     } else {
       liquidController.animateToPage(

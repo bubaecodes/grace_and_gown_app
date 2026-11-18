@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
+import 'package:grace_and_gown_app/utils/storage/app_storage.dart';
 
 class SplashController extends GetxController with GetSingleTickerProviderStateMixin {
 
@@ -28,7 +29,18 @@ class SplashController extends GetxController with GetSingleTickerProviderStateM
           /// to Close keyboard before navigating
           FocusManager.instance.primaryFocus?.unfocus();
 
-          Get.offAllNamed(Routes.onboardingScreen);
+          /// Where the app lands depends on how far the user got last time:
+          /// never seen onboarding → onboarding; signed in → straight to the
+          /// dashboard; otherwise → login. A fresh install (or a test, where
+          /// prefs are untouched) reads both flags as false and still gets
+          /// the onboarding hand-off.
+          if (!AppStorage.seenOnboarding) {
+            Get.offAllNamed(Routes.onboardingScreen);
+          } else if (AppStorage.isLoggedIn) {
+            Get.offAllNamed(Routes.dashboardScreen);
+          } else {
+            Get.offAllNamed(Routes.loginScreen);
+          }
         }
     );
 
