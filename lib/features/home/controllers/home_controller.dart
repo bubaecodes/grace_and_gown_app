@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/features/dashboard/data/sample_products.dart';
 import 'package:grace_and_gown_app/features/shop/products/models/products.dart';
+import 'package:grace_and_gown_app/utils/states/load_state.dart';
 
 /// Sort choices offered by the filter button beside the home search bar.
 enum HomeSort { featured, priceAscending, priceDescending, name }
@@ -27,6 +28,34 @@ class HomeController extends GetxController {
 
   /// Active sort — [HomeSort.featured] keeps the curated order untouched.
   final Rx<HomeSort> sort = HomeSort.featured.obs;
+
+  /// Where the grid is in its load cycle. Starts [LoadState.loading] and
+  /// settles on [LoadState.data] once `reload()` finishes.
+  final Rx<LoadState> state = LoadState.loading.obs;
+
+  /// (Re)loads the grid's data.
+  ///
+  /// Currently a [Future.microtask] that flips straight to [LoadState.data]
+  /// — it exists so the screens already switch on [state]. API integration
+  /// replaces the body with a real fetch: `await` it, then `state.value =
+  /// LoadState.data`, and set [LoadState.error] in the catch.
+  Future<void> reload() async {
+    state.value = LoadState.loading;
+    try {
+      await Future<void>.microtask(() {});
+      if (isClosed) return;
+      state.value = LoadState.data;
+    } catch (_) {
+      if (isClosed) return;
+      state.value = LoadState.error;
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    reload();
+  }
 
   /// True when the sort chip on the filter button should be lit.
   bool get hasSort => sort.value != HomeSort.featured;

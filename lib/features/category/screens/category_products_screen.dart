@@ -1,19 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grace_and_gown_app/common/widgets/app_state_views.dart';
 import 'package:grace_and_gown_app/features/category/data/gown_categories.dart';
 import 'package:grace_and_gown_app/features/home/widgets/product_grid.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
+import 'package:grace_and_gown_app/utils/states/load_state.dart';
 
 /// Everything in a single category — pushed from a card on the Category tab or
 /// from a chip on the home screen, and popped by the back arrow.
-class CategoryProductsScreen extends StatelessWidget {
+///
+/// Stateful because this screen owns its load cycle: the category arrives via
+/// `Get.arguments` and the products are "fetched" on mount. API integration
+/// replaces the [_load] body with a real request (set [LoadState.error] in
+/// the catch); nothing else changes.
+class CategoryProductsScreen extends StatefulWidget {
   const CategoryProductsScreen({super.key});
 
   @override
+  State<CategoryProductsScreen> createState() =>
+      _CategoryProductsScreenState();
+}
+
+class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
+  late final GownCategory _category;
+  LoadState _state = LoadState.loading;
+
+  @override
+  void initState() {
+    super.initState();
+    _category = Get.arguments as GownCategory? ?? GownCategory.all.first;
+    _load();
+  }
+
+  Future<void> _load() async {
+    setState(() => _state = LoadState.loading);
+    try {
+      await Future<void>.microtask(() {});
+      if (!mounted) return;
+      setState(() => _state = LoadState.data);
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _state = LoadState.error);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final category = Get.arguments as GownCategory? ?? GownCategory.all.first;
-    final products = category.products;
+    final products = _category.products;
 
     return Scaffold(
       backgroundColor: AppColors.authScaffold(context),
@@ -41,7 +75,7 @@ class CategoryProductsScreen extends StatelessWidget {
                   SizedBox(width: 10.w),
                   Expanded(
                     child: Text(
-                      category.title,
+                      _category.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -65,10 +99,17 @@ class CategoryProductsScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-              if (products.isEmpty)
-                _EmptyCategory(category: category)
-              else
-                ProductGrid(products: products),
+              // Loading / error / data switch — retry restarts `_load()`.
+              AppLoadSwitch(
+                state: _state,
+                onRetry: _load,
+                data: (context) {
+                  if (products.isEmpty) {
+                    return _EmptyCategory(category: _category);
+                  }
+                  return ProductGrid(products: products);
+                },
+              ),
             ],
           ),
         ),

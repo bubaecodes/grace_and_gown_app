@@ -7,8 +7,7 @@ import 'package:grace_and_gown_app/utils/routes/routes.dart';
 /// "Route not found" error when the user taps the button.
 ///
 /// `splashScreen` is deliberately absent: the boot route `'/'` is served by
-/// `home: SplashScreen()` in MainApp. `searchScreen` and
-/// `bookingDetailsScreen` are future screens no button navigates to yet.
+/// `home: SplashScreen()` in MainApp.
 void main() {
   test('every navigable route is registered in AppPages', () {
     final registered = AppPages.pages.map((page) => page.name).toSet();
@@ -27,6 +26,7 @@ void main() {
       Routes.productDetailScreen,
       Routes.categoryProductsScreen,
       Routes.paymentScreen,
+      Routes.searchScreen,
       // Profile sub-screens
       Routes.editProfileScreen,
       Routes.addressesScreen,

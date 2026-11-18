@@ -17,6 +17,7 @@ import 'package:grace_and_gown_app/features/profile/screens/help_center_screen.d
 import 'package:grace_and_gown_app/features/profile/screens/notifications_screen.dart';
 import 'package:grace_and_gown_app/features/profile/screens/payment_methods_screen.dart';
 import 'package:grace_and_gown_app/features/profile/screens/privacy_security_screen.dart';
+import 'package:grace_and_gown_app/features/search/screens/search_screen.dart';
 import 'package:grace_and_gown_app/features/shop/products/screens/product_details_screen.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
 
@@ -67,6 +68,10 @@ class AppPages {
     GetPage(
       name: Routes.paymentScreen,
       page: () => const PaymentScreen(),
+    ),
+    GetPage(
+      name: Routes.searchScreen,
+      page: () => const SearchScreen(),
     ),
 
     ///----------------------- PROFILE SUB-SCREENS

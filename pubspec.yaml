@@ -38,8 +38,6 @@ dependencies:
   overlay_support: ^2.1.0
   toastification: ^3.2.0
   get: ^4.7.3
-  firebase_core: ^4.13.0
-  flutter_liquid_swipe: ^0.0.1
   smooth_page_indicator: ^2.0.1
   liquid_swipe: ^3.1.0
   iconsax_flutter: ^1.0.1

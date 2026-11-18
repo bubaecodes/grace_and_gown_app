@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grace_and_gown_app/common/widgets/app_state_views.dart';
 import 'package:grace_and_gown_app/features/home/widgets/product_grid.dart';
 import 'package:grace_and_gown_app/features/wishlist/controllers/wishlist_controller.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
@@ -45,13 +46,24 @@ class WishlistScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.h),
               Obx(() {
-                final favorites = WishlistController.instance.favorites;
+                final wishlist = WishlistController.instance;
+                // Read inside the Obx, not in the data closure below: GetX
+                // only tracks reads made while this builder runs, and the
+                // closure executes later during AppLoadSwitch's own build —
+                // untracked there, hearting a gown would never rebuild.
+                final favorites = wishlist.favorites;
 
-                if (favorites.isEmpty) {
-                  return _EmptyWishlist(context: context);
-                }
-
-                return ProductGrid(products: favorites);
+                // Loading / error / data switch — retry restarts `reload()`.
+                return AppLoadSwitch(
+                  state: wishlist.state.value,
+                  onRetry: wishlist.reload,
+                  data: (context) {
+                    if (favorites.isEmpty) {
+                      return _EmptyWishlist(context: context);
+                    }
+                    return ProductGrid(products: favorites);
+                  },
+                );
               }),
             ],
           ),

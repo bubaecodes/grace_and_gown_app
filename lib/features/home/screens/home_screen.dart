@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grace_and_gown_app/common/widgets/app_state_views.dart';
 import 'package:grace_and_gown_app/features/home/controllers/home_controller.dart';
 import 'package:grace_and_gown_app/features/home/widgets/category_row.dart';
 import 'package:grace_and_gown_app/features/home/widgets/home_header.dart';
@@ -52,12 +53,23 @@ class _HomeGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       final home = HomeController.instance;
+      // Read inside the Obx, not in the data closure below: GetX only
+      // tracks reads that happen while this builder runs, and the closure
+      // executes later during AppLoadSwitch's own build — untracked reads
+      // there mean query/sort changes would never rebuild the grid.
       final products = home.visibleProducts;
 
-      if (products.isEmpty) {
-        return _NoResults(query: home.query.value);
-      }
-      return ProductGrid(products: products);
+      // Loading / error / data switch — the retry restarts `reload()`.
+      return AppLoadSwitch(
+        state: home.state.value,
+        onRetry: home.reload,
+        data: (context) {
+          if (products.isEmpty) {
+            return _NoResults(query: home.query.value);
+          }
+          return ProductGrid(products: products);
+        },
+      );
     });
   }
 }

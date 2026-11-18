@@ -10,10 +10,17 @@ import 'package:grace_and_gown_app/features/shop/products/models/products.dart';
 /// follow each photo's aspect ratio. `IntrinsicHeight` + stretch makes both
 /// cards in a row share one height, so row bottoms stay aligned.
 class ProductGrid extends StatelessWidget {
-  const ProductGrid({super.key, this.products = SampleProducts.items});
+  const ProductGrid({
+    super.key,
+    this.products = SampleProducts.items,
+    this.onSelected,
+  });
 
   /// Which products to show. Defaults to the curated home-screen list.
   final List<Product> products;
+
+  /// Forwarded to every [ProductCard] — see [ProductCard.onSelected].
+  final VoidCallback? onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,12 @@ class ProductGrid extends StatelessWidget {
               children: [
                 for (var c = 0; c < rows[r].length; c++) ...[
                   if (c > 0) SizedBox(width: 12.w),
-                  Expanded(child: ProductCard(product: products[rows[r][c]])),
+                  Expanded(
+                    child: ProductCard(
+                      product: products[rows[r][c]],
+                      onSelected: onSelected,
+                    ),
+                  ),
                 ],
                 // Keep a lone card in the last row at half width.
                 if (rows[r].length == 1) ...[

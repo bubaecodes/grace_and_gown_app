@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grace_and_gown_app/common/widgets/app_state_views.dart';
+import 'package:grace_and_gown_app/features/category/controllers/category_controller.dart';
 import 'package:grace_and_gown_app/features/category/data/gown_categories.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
@@ -14,6 +16,10 @@ class GownsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // No-op once the dashboard has already put it — safe to call here so the
+    // tab also works when pumped on its own.
+    Get.put(CategoryController());
+
     return Scaffold(
       backgroundColor: AppColors.authScaffold(context),
       body: SafeArea(
@@ -42,24 +48,42 @@ class GownsScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-              // Two-up grid, matching the ProductGrid gutter (12) so both
-              // screens feel like the same layout system.
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 12.h,
-                crossAxisSpacing: 12.w,
-                childAspectRatio: 0.74,
-                children: [
-                  for (final category in GownCategory.all)
-                    _CategoryCard(category: category),
-                ],
-              ),
+              Obx(() {
+                final controller = CategoryController.instance;
+
+                // Loading / error / data switch — retry restarts `reload()`.
+                return AppLoadSwitch(
+                  state: controller.state.value,
+                  onRetry: controller.reload,
+                  data: (context) => const _CategoryGrid(),
+                );
+              }),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Two-up grid, matching the ProductGrid gutter (12) so both screens feel
+/// like the same layout system.
+class _CategoryGrid extends StatelessWidget {
+  const _CategoryGrid();
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      mainAxisSpacing: 12.h,
+      crossAxisSpacing: 12.w,
+      childAspectRatio: 0.74,
+      children: [
+        for (final category in GownCategory.all)
+          _CategoryCard(category: category),
+      ],
     );
   }
 }

@@ -7,17 +7,25 @@ import 'package:grace_and_gown_app/utils/constants/colors.dart';
 import 'package:grace_and_gown_app/utils/routes/routes.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.product});
+  const ProductCard({super.key, required this.product, this.onSelected});
 
   final Product product;
+
+  /// Called just before navigating to the details screen — the Search screen
+  /// uses it to file the query in the recent searches when a result is
+  /// tapped. Optional: everywhere else it stays null.
+  final VoidCallback? onSelected;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(
-        Routes.productDetailScreen,
-        arguments: product,
-      ),
+      onTap: () {
+        onSelected?.call();
+        Get.toNamed(
+          Routes.productDetailScreen,
+          arguments: product,
+        );
+      },
       borderRadius: BorderRadius.circular(14.r),
       child: Container(
         decoration: BoxDecoration(

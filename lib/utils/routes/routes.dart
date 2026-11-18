@@ -23,9 +23,6 @@ class Routes {
   /// user's recent queries.
   static const searchScreen = '/search-screen';
 
-  /// Everything about one visit — reference, slot, fee receipt.
-  static const bookingDetailsScreen = '/booking-details-screen';
-
   ///----------------- PROFILE SUB-SCREENS-------------------------///
   static const editProfileScreen = '/edit-profile-screen';
   static const addressesScreen = '/addresses-screen';
