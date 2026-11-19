@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grace_and_gown_app/common/widgets/app_entrance.dart';
 import 'package:grace_and_gown_app/common/widgets/app_state_views.dart';
 import 'package:grace_and_gown_app/features/category/controllers/category_controller.dart';
 import 'package:grace_and_gown_app/features/category/data/gown_categories.dart';
@@ -81,8 +82,14 @@ class _CategoryGrid extends StatelessWidget {
       crossAxisSpacing: 12.w,
       childAspectRatio: 0.74,
       children: [
-        for (final category in GownCategory.all)
-          _CategoryCard(category: category),
+        // Same staggered zoom-in as the product grids, capped at index 8
+        // (400ms) — the category list is short, so every card still feels
+        // like it arrives in sequence.
+        for (var i = 0; i < GownCategory.all.length; i++)
+          AppEntrance(
+            delay: Duration(milliseconds: 50 * (i > 8 ? 8 : i)),
+            child: _CategoryCard(category: GownCategory.all[i]),
+          ),
       ],
     );
   }
@@ -96,10 +103,8 @@ class _CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(
-        Routes.categoryProductsScreen,
-        arguments: category,
-      ),
+      onTap: () =>
+          Get.toNamed(Routes.categoryProductsScreen, arguments: category),
       borderRadius: BorderRadius.circular(16.r),
       child: Container(
         clipBehavior: Clip.antiAlias,
@@ -133,11 +138,7 @@ class _CategoryCard extends StatelessWidget {
                   color: AppColors.black.withValues(alpha: 0.35),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  category.icon,
-                  size: 16.sp,
-                  color: AppColors.white,
-                ),
+                child: Icon(category.icon, size: 16.sp, color: AppColors.white),
               ),
             ),
             Positioned(

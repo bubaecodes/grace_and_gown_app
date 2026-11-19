@@ -10,6 +10,7 @@ import 'features/auth/splash/screens/splash_screen.dart';
 import 'utils/routes/app_pages.dart';
 import 'utils/routes/routes.dart';
 import 'utils/theme/theme.dart';
+import 'utils/transitions/fade_rise_transition.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -22,7 +23,9 @@ SystemUiOverlayStyle systemUiOverlayStyle(Brightness brightness) {
     statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
     statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
     systemNavigationBarColor: isDark ? AppColors.dark : Colors.white,
-    systemNavigationBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+    systemNavigationBarIconBrightness: isDark
+        ? Brightness.light
+        : Brightness.dark,
   );
 }
 
@@ -33,8 +36,7 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp>
-    with WidgetsBindingObserver {
+class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return ToastificationWrapper(
@@ -52,6 +54,13 @@ class _MainAppState extends State<MainApp>
               darkTheme: AppTheme.darkTheme,
               initialRoute: Routes.splashScreen,
               getPages: AppPages.pages,
+
+              /// Every pushed screen fades in while rising ~16px; set here
+              /// once instead of on each GetPage (GetX falls through to
+              /// `Get.customTransition` when a route sets no transition).
+              customTransition: FadeRiseTransition(),
+              transitionDuration: const Duration(milliseconds: 260),
+
               /// Follow the device light/dark setting.
               //themeMode: ThemeMode.system,
               themeMode: ThemeMode.system,
@@ -77,9 +86,7 @@ class _MainAppState extends State<MainApp>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       SystemChrome.setSystemUIOverlayStyle(
-        systemUiOverlayStyle(
-          MediaQuery.of(context).platformBrightness,
-        ),
+        systemUiOverlayStyle(MediaQuery.of(context).platformBrightness),
       );
     }
   }

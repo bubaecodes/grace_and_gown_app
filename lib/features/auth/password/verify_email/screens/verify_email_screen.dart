@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grace_and_gown_app/common/widgets/app_entrance.dart';
 import 'package:grace_and_gown_app/common/widgets/auth_brand_header.dart';
 import 'package:grace_and_gown_app/features/auth/password/verify_email/widgets/verify_email_form.dart';
 import 'package:grace_and_gown_app/features/auth/password/verify_email/widgets/verify_email_header.dart';
@@ -16,25 +17,32 @@ class VerifyEmailScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const AuthBrandHeader(),
+            // Two-beat entrance: brand header + icon + headline first,
+            // then the form a beat later.
+            const AppEntrance(child: AuthBrandHeader()),
             SizedBox(height: 16.h),
-            Container(
-              width: 96.w,
-              height: 96.w,
-              decoration: BoxDecoration(
-                color: AppColors.fieldFill(context),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.alternate_email_rounded,
-                color: AppColors.heading(context),
-                size: 48.sp,
+            AppEntrance(
+              child: Container(
+                width: 96.w,
+                height: 96.w,
+                decoration: BoxDecoration(
+                  color: AppColors.fieldFill(context),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.alternate_email_rounded,
+                  color: AppColors.heading(context),
+                  size: 48.sp,
+                ),
               ),
             ),
             SizedBox(height: 16.h),
-            const VerifyEmailHeader(),
+            const AppEntrance(child: VerifyEmailHeader()),
             SizedBox(height: 14.h),
-            const VerifyEmailForm(),
+            const AppEntrance(
+              delay: Duration(milliseconds: 80),
+              child: VerifyEmailForm(),
+            ),
           ],
         ),
       ),

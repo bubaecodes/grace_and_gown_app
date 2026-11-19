@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grace_and_gown_app/common/widgets/app_entrance.dart';
 import 'package:grace_and_gown_app/common/widgets/app_state_views.dart';
 import 'package:grace_and_gown_app/features/home/controllers/home_controller.dart';
 import 'package:grace_and_gown_app/features/home/widgets/category_row.dart';
@@ -25,13 +26,26 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HomeHeader(),
+              // Entrance cascade: each block waits 60ms longer than the
+              // last, so Home "arrives" top-to-bottom when it opens. The
+              // grid below keeps its own per-card stagger instead of a
+              // base delay, so the whole sequence still finishes quickly.
+              const AppEntrance(child: HomeHeader()),
               SizedBox(height: 14.h),
-              const HomeSearchBar(),
+              const AppEntrance(
+                delay: Duration(milliseconds: 60),
+                child: HomeSearchBar(),
+              ),
               SizedBox(height: 16.h),
-              const PromoCarousel(),
+              const AppEntrance(
+                delay: Duration(milliseconds: 120),
+                child: PromoCarousel(),
+              ),
               SizedBox(height: 20.h),
-              const CategoryRow(),
+              const AppEntrance(
+                delay: Duration(milliseconds: 180),
+                child: CategoryRow(),
+              ),
               SizedBox(height: 20.h),
               const _HomeGrid(),
             ],

@@ -21,18 +21,42 @@ class DashboardScreen extends StatelessWidget {
     // dashboard clears it for the next session.
     Get.put(WishlistController());
 
+    // The tabs themselves never unmount (IndexedStack keeps every tab's
+    // state — scroll position, filters, form fields), so only this wrapper
+    // re-animates when the selected tab changes.
+    const tabs = [
+      HomeScreen(),
+      GownsScreen(),
+      WishlistScreen(),
+      BookingsScreen(),
+      ProfileScreen(),
+    ];
+
     return Scaffold(
       backgroundColor: AppColors.authScaffold(context),
-      body: Obx(() => IndexedStack(
-        index: DashboardController.instance.selectedIndex.value,
-        children: const [
-          HomeScreen(),
-          GownsScreen(),
-          WishlistScreen(),
-          BookingsScreen(),
-          ProfileScreen(),
-        ],
-      )),
+      body: Obx(() {
+        final index = DashboardController.instance.selectedIndex.value;
+
+        // Accessibility: with "remove animations" on, swap instantly.
+        if (MediaQuery.disableAnimationsOf(context)) {
+          return IndexedStack(index: index, children: tabs);
+        }
+
+        // Keyed on the index: each tab change creates a fresh animation
+        // state, so the new tab fades in from 0.97 scale. The first build
+        // animates too, which reads as the dashboard itself arriving.
+        return TweenAnimationBuilder<double>(
+          key: ValueKey(index),
+          tween: Tween<double>(begin: 0, end: 1),
+          duration: const Duration(milliseconds: 220),
+          curve: Curves.easeOutCubic,
+          builder: (context, t, child) => Opacity(
+            opacity: t,
+            child: Transform.scale(scale: 0.97 + 0.03 * t, child: child),
+          ),
+          child: IndexedStack(index: index, children: tabs),
+        );
+      }),
       bottomNavigationBar: const AppBottomNav(),
     );
   }

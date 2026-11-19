@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,10 +23,7 @@ class ProductCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         onSelected?.call();
-        Get.toNamed(
-          Routes.productDetailScreen,
-          arguments: product,
-        );
+        Get.toNamed(Routes.productDetailScreen, arguments: product);
       },
       borderRadius: BorderRadius.circular(14.r),
       child: Container(
@@ -46,10 +45,7 @@ class ProductCard extends StatelessWidget {
                   child: SizedBox(
                     width: double.infinity,
                     height: 155.h,
-                    child: Image.asset(
-                      product.image,
-                      fit: BoxFit.cover,
-                    ),
+                    child: Image.asset(product.image, fit: BoxFit.cover),
                   ),
                 ),
                 // Above the card's own InkWell, so it carries its own
@@ -138,14 +134,47 @@ class _FavoriteButton extends StatelessWidget {
               color: AppColors.elevatedSurface(context).withValues(alpha: 0.85),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              saved ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-              size: 17.sp,
-              color: saved ? AppColors.error : AppColors.accent(context),
-            ),
+            child: _PulseIcon(saved: saved),
           ),
         ),
       );
     });
+  }
+}
+
+/// The heart icon with a gentle pop whenever the saved state flips.
+///
+/// Keyed on [saved], so toggling creates a fresh animation: a sine curve
+/// runs 0→1, swelling the icon to 1.2× at the midpoint and settling it
+/// back to rest — a pulse, not a bounce. Untouched state changes (other
+/// products hearting, list rebuilds) keep the same key and don't re-run it.
+class _PulseIcon extends StatelessWidget {
+  const _PulseIcon({required this.saved});
+
+  final bool saved;
+
+  @override
+  Widget build(BuildContext context) {
+    final icon = Icon(
+      saved ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+      size: 17.sp,
+      color: saved ? AppColors.error : AppColors.accent(context),
+    );
+
+    // Accessibility: no pulse when the system disables animations.
+    if (MediaQuery.disableAnimationsOf(context)) return icon;
+
+    return TweenAnimationBuilder<double>(
+      key: ValueKey(saved),
+      tween: Tween<double>(begin: 0, end: 1),
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeOutCubic,
+      builder: (context, t, child) => Transform.scale(
+        // sin(π·t) is 0 at both ends and 1 at the midpoint: rest → 1.2× → rest.
+        scale: 1 + 0.2 * math.sin(math.pi * t),
+        child: child,
+      ),
+      child: icon,
+    );
   }
 }

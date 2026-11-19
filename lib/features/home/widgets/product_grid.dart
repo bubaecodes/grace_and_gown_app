@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grace_and_gown_app/common/widgets/app_entrance.dart';
 import 'package:grace_and_gown_app/features/dashboard/data/sample_products.dart';
 import 'package:grace_and_gown_app/features/home/widgets/product_card.dart';
 import 'package:grace_and_gown_app/features/shop/products/models/products.dart';
@@ -41,9 +42,18 @@ class ProductGrid extends StatelessWidget {
                 for (var c = 0; c < rows[r].length; c++) ...[
                   if (c > 0) SizedBox(width: 12.w),
                   Expanded(
-                    child: ProductCard(
-                      product: products[rows[r][c]],
-                      onSelected: onSelected,
+                    child: AppEntrance(
+                      // Staggered zoom-in: card position drives the delay so
+                      // cards ripple in left-to-right, top-to-bottom. Capped
+                      // at index 10 (500ms) — long lists start together
+                      // instead of queueing behind each other.
+                      delay: Duration(
+                        milliseconds: 50 * (rows[r][c] > 10 ? 10 : rows[r][c]),
+                      ),
+                      child: ProductCard(
+                        product: products[rows[r][c]],
+                        onSelected: onSelected,
+                      ),
                     ),
                   ),
                 ],

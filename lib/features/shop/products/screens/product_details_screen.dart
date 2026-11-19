@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grace_and_gown_app/common/widgets/app_entrance.dart';
 import 'package:grace_and_gown_app/common/widgets/app_primary_button.dart';
 import 'package:grace_and_gown_app/features/shop/products/controllers/product_detail_controller.dart';
 import 'package:grace_and_gown_app/utils/constants/colors.dart';
@@ -81,18 +82,20 @@ class ProductDetailScreen extends StatelessWidget {
                           color: AppColors.accent(context),
                         ),
                       ),
-                      Obx(() => IconButton(
-                            onPressed: controller.toggleFavourite,
-                            icon: Icon(
-                              controller.isFavourite
-                                  ? Icons.favorite_rounded
-                                  : Icons.favorite_outline_rounded,
-                              size: 22.sp,
-                              color: controller.isFavourite
-                                  ? AppColors.error
-                                  : AppColors.accent(context),
-                            ),
-                          )),
+                      Obx(
+                        () => IconButton(
+                          onPressed: controller.toggleFavourite,
+                          icon: Icon(
+                            controller.isFavourite
+                                ? Icons.favorite_rounded
+                                : Icons.favorite_outline_rounded,
+                            size: 22.sp,
+                            color: controller.isFavourite
+                                ? AppColors.error
+                                : AppColors.accent(context),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Text(
@@ -141,100 +144,108 @@ class ProductDetailScreen extends StatelessWidget {
                       ),
                     ),
 
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(18.w, 16.h, 18.w, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  product.name,
-                                  style: TextStyle(
-                                    fontFamily: 'Prata',
-                                    fontSize: 23.sp,
-                                    height: 1.25,
-                                    letterSpacing: 0.4.sp,
-                                    color: AppColors.heading(context),
+                    AppEntrance(
+                      delay: const Duration(milliseconds: 60),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(18.w, 16.h, 18.w, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    product.name,
+                                    style: TextStyle(
+                                      fontFamily: 'Prata',
+                                      fontSize: 23.sp,
+                                      height: 1.25,
+                                      letterSpacing: 0.4.sp,
+                                      color: AppColors.heading(context),
+                                    ),
                                   ),
                                 ),
+                                SizedBox(width: 10.w),
+                                Text(
+                                  product.price,
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.accentText(context),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10.h),
+
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 6.h,
                               ),
-                              SizedBox(width: 10.w),
-                              Text(
-                                product.price,
+                              decoration: BoxDecoration(
+                                color: AppColors.fieldFill(context),
+                                borderRadius: BorderRadius.circular(30.r),
+                                border: Border.all(
+                                  color: AppColors.accent(
+                                    context,
+                                  ).withValues(alpha: 0.5),
+                                ),
+                              ),
+                              child: Text(
+                                product.category,
                                 style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w800,
+                                  fontSize: 11.5.sp,
+                                  fontWeight: FontWeight.w700,
                                   color: AppColors.accentText(context),
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 10.h),
+                            ),
+                            SizedBox(height: 18.h),
 
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 12.w,
-                              vertical: 6.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.fieldFill(context),
-                              borderRadius: BorderRadius.circular(30.r),
-                              border: Border.all(
-                                color:
-                                AppColors.accent(context).withValues(alpha: 0.5),
-                              ),
-                            ),
-                            child: Text(
-                              product.category,
+                            Text(
+                              'Description',
                               style: TextStyle(
-                                fontSize: 11.5.sp,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.accentText(context),
+                                color: AppColors.heading(context),
                               ),
                             ),
-                          ),
-                          SizedBox(height: 18.h),
-
-                          Text(
-                            'Description',
-                            style: TextStyle(
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.heading(context),
+                            SizedBox(height: 6.h),
+                            Text(
+                              product.description,
+                              style: TextStyle(
+                                fontSize: 13.5.sp,
+                                height: 1.55,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.secondary(context),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 6.h),
-                          Text(
-                            product.description,
-                            style: TextStyle(
-                              fontSize: 13.5.sp,
-                              height: 1.55,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.secondary(context),
-                            ),
-                          ),
-                          SizedBox(height: 20.h),
+                            SizedBox(height: 20.h),
 
-                          specRow(Icons.style_outlined, 'Fabric', product.fabric),
-                          specRow(
-                            Icons.straighten_outlined,
-                            'Sizes available',
-                            product.sizes.join('  ·  '),
-                          ),
-                          specRow(
-                            Icons.event_available_outlined,
-                            'Availability',
-                            product.availability,
-                          ),
-                          specRow(
-                            Icons.category_outlined,
-                            'Category',
-                            product.category,
-                          ),
-                        ],
+                            specRow(
+                              Icons.style_outlined,
+                              'Fabric',
+                              product.fabric,
+                            ),
+                            specRow(
+                              Icons.straighten_outlined,
+                              'Sizes available',
+                              product.sizes.join('  ·  '),
+                            ),
+                            specRow(
+                              Icons.event_available_outlined,
+                              'Availability',
+                              product.availability,
+                            ),
+                            specRow(
+                              Icons.category_outlined,
+                              'Category',
+                              product.category,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -243,52 +254,57 @@ class ProductDetailScreen extends StatelessWidget {
             ),
 
             /// Bottom action bar
-            Container(
-              padding: EdgeInsets.fromLTRB(18.w, 12.h, 18.w, 12.h),
-              decoration: BoxDecoration(
-                color: AppColors.elevatedSurface(context),
-                border: Border(
-                  top: BorderSide(
-                    color: AppColors.accent(context).withValues(alpha: 0.35),
-                    width: 0.8,
+            AppEntrance(
+              delay: const Duration(milliseconds: 120),
+              child: Container(
+                padding: EdgeInsets.fromLTRB(18.w, 12.h, 18.w, 12.h),
+                decoration: BoxDecoration(
+                  color: AppColors.elevatedSurface(context),
+                  border: Border(
+                    top: BorderSide(
+                      color: AppColors.accent(context).withValues(alpha: 0.35),
+                      width: 0.8,
+                    ),
                   ),
                 ),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: InkWell(
-                      onTap: controller.addToWishlist,
-                      borderRadius: BorderRadius.circular(12.r),
-                      child: Container(
-                        height: 60.h,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: AppColors.fieldFill(context),
-                          border: Border.all(color: AppColors.accent(context)),
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        child: Text(
-                          'Add to Wishlist',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.accentText(context),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: controller.addToWishlist,
+                        borderRadius: BorderRadius.circular(12.r),
+                        child: Container(
+                          height: 60.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColors.fieldFill(context),
+                            border: Border.all(
+                              color: AppColors.accent(context),
+                            ),
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: Text(
+                            'Add to Wishlist',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.accentText(context),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: AppPrimaryButton(
-                      text: 'Book Now',
-                      onTap: controller.bookNow,
+                    SizedBox(width: 10.w),
+                    Expanded(
+                      child: AppPrimaryButton(
+                        text: 'Book Now',
+                        onTap: controller.bookNow,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
