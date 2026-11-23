@@ -9,9 +9,6 @@ class LoginController extends GetxController{
 
   RxBool isVisible = false.obs;
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
   void isToggle(){
     isVisible.toggle();
   }
@@ -37,12 +34,5 @@ class LoginController extends GetxController{
     AppStorage.isLoggedIn = true;
 
     Get.offAllNamed(Routes.dashboardScreen);
-  }
-
-  @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
   }
 }

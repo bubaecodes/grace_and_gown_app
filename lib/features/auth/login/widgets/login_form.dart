@@ -17,6 +17,19 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
+  // Owned by this widget, not LoginController: the form must never hand a
+  // disposed TextEditingController to a TextFormField, so the fields live
+  // and die with the widget that displays them.
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
@@ -40,7 +53,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             AppFormTextField(
-              controller: controller.emailController,
+              controller: _emailController,
               validator: controller.validateEmail,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
@@ -62,7 +75,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Obx(
               ()=> AppFormTextField(
-                controller: controller.passwordController,
+                controller: _passwordController,
                 validator: controller.validatePassword,
                 textInputAction: TextInputAction.done,
                 hintText: 'Enter your password',

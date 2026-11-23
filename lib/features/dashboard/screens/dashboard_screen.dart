@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:grace_and_gown_app/features/dashboard/controllers/dashboard_controller.dart';
 import 'package:grace_and_gown_app/features/bookings/screens/bookings_screen.dart';
@@ -32,32 +33,42 @@ class DashboardScreen extends StatelessWidget {
       ProfileScreen(),
     ];
 
-    return Scaffold(
-      backgroundColor: AppColors.authScaffold(context),
-      body: Obx(() {
-        final index = DashboardController.instance.selectedIndex.value;
+    // Session root: system back closes the app instead of popping this
+    // route onto whatever sits beneath it (the login route), whose
+    // controllers are already disposed by the time we get here. Pushed
+    // screens keep their own routes, so their back arrows still work.
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) SystemNavigator.pop();
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.authScaffold(context),
+        body: Obx(() {
+          final index = DashboardController.instance.selectedIndex.value;
 
-        // Accessibility: with "remove animations" on, swap instantly.
-        if (MediaQuery.disableAnimationsOf(context)) {
-          return IndexedStack(index: index, children: tabs);
-        }
+          // Accessibility: with "remove animations" on, swap instantly.
+          if (MediaQuery.disableAnimationsOf(context)) {
+            return IndexedStack(index: index, children: tabs);
+          }
 
-        // Keyed on the index: each tab change creates a fresh animation
-        // state, so the new tab fades in from 0.97 scale. The first build
-        // animates too, which reads as the dashboard itself arriving.
-        return TweenAnimationBuilder<double>(
-          key: ValueKey(index),
-          tween: Tween<double>(begin: 0, end: 1),
-          duration: const Duration(milliseconds: 220),
-          curve: Curves.easeOutCubic,
-          builder: (context, t, child) => Opacity(
-            opacity: t,
-            child: Transform.scale(scale: 0.97 + 0.03 * t, child: child),
-          ),
-          child: IndexedStack(index: index, children: tabs),
-        );
-      }),
-      bottomNavigationBar: const AppBottomNav(),
+          // Keyed on the index: each tab change creates a fresh animation
+          // state, so the new tab fades in from 0.97 scale. The first build
+          // animates too, which reads as the dashboard itself arriving.
+          return TweenAnimationBuilder<double>(
+            key: ValueKey(index),
+            tween: Tween<double>(begin: 0, end: 1),
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOutCubic,
+            builder: (context, t, child) => Opacity(
+              opacity: t,
+              child: Transform.scale(scale: 0.97 + 0.03 * t, child: child),
+            ),
+            child: IndexedStack(index: index, children: tabs),
+          );
+        }),
+        bottomNavigationBar: const AppBottomNav(),
+      ),
     );
   }
 }

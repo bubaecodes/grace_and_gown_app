@@ -14,7 +14,9 @@ class SignupScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.authScaffold(context),
       body: SafeArea(
-        child: Padding(
+        // The keyboard shrinks the viewport; let the column scroll instead
+        // of overflowing when a field is focused.
+        child: SingleChildScrollView(
           padding: EdgeInsets.only(top: 4.h),
           child: Column(
             children: [

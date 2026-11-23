@@ -15,33 +15,37 @@ class ResetLinkScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.authScaffold(context),
       body: SafeArea(
-        child: Column(
-          children: [
-            // Two-beat entrance: brand header + icon + headline first,
-            // then the form a beat later.
-            const AppEntrance(child: AuthBrandHeader()),
-            SizedBox(height: 20.h),
-            const AppEntrance(child: _ResetLinkIcon()),
-            SizedBox(height: 16.h),
-            AppEntrance(
-              child: Text(
-                AppTexts.passwordResetLinkHeader,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Prata',
-                  fontSize: 28.sp,
-                  letterSpacing: 1.sp,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.heading(context),
+        // The keyboard shrinks the viewport; let the column scroll instead
+        // of overflowing when a field is focused.
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Two-beat entrance: brand header + icon + headline first,
+              // then the form a beat later.
+              const AppEntrance(child: AuthBrandHeader()),
+              SizedBox(height: 20.h),
+              const AppEntrance(child: _ResetLinkIcon()),
+              SizedBox(height: 16.h),
+              AppEntrance(
+                child: Text(
+                  AppTexts.passwordResetLinkHeader,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Prata',
+                    fontSize: 28.sp,
+                    letterSpacing: 1.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.heading(context),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 10.h),
-            const AppEntrance(
-              delay: Duration(milliseconds: 80),
-              child: ResetLinkForm(),
-            ),
-          ],
+              SizedBox(height: 10.h),
+              const AppEntrance(
+                delay: Duration(milliseconds: 80),
+                child: ResetLinkForm(),
+              ),
+            ],
+          ),
         ),
       ),
     );

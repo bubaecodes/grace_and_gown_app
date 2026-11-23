@@ -14,16 +14,20 @@ class ForgotPasswordScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.authScaffold(context),
       body: SafeArea(
-        child: Column(
-          children: [
-            // Two-beat entrance: header first, then the form a beat later.
-            const AppEntrance(child: ForgotPasswordHeader()),
-            SizedBox(height: 10.h),
-            const AppEntrance(
-              delay: Duration(milliseconds: 80),
-              child: ForgotPasswordForm(),
-            ),
-          ],
+        // The keyboard shrinks the viewport; let the column scroll instead
+        // of overflowing when a field is focused.
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Two-beat entrance: header first, then the form a beat later.
+              const AppEntrance(child: ForgotPasswordHeader()),
+              SizedBox(height: 10.h),
+              const AppEntrance(
+                delay: Duration(milliseconds: 80),
+                child: ForgotPasswordForm(),
+              ),
+            ],
+          ),
         ),
       ),
     );
